@@ -1,6 +1,6 @@
 name: Unity Actions
 
-on: [push]
+on: [pull_request]
 
 jobs:
   build:
@@ -20,6 +20,7 @@ jobs:
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
+          unityVersion: 2021.1.13f1
           projectPath: Card_Game_Maker
           githubToken: ${{ secrets.GITHUB_TOKEN }}
 
@@ -29,8 +30,10 @@ jobs:
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
+          unityVersion: 2021.1.13f1
           projectPath: Card_Game_Maker
           targetPlatform: WebGL
+          allowDirtyBuild: true
 
       # Output
       - uses: actions/upload-artifact@v2
