@@ -14,6 +14,11 @@ jobs:
         with:
           lfs: true
 
+      - uses: actions/cache@v2
+        with:
+          path: Card_Game_Maker/Library
+          key: Library
+
       # Test
       - name: Run tests
         uses: game-ci/unity-test-runner@v2
