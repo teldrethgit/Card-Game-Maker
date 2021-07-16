@@ -19,3 +19,16 @@ class Users(db.Model):
    id = db.Column(db.Integer, primary_key=True, nullable=False)
    name = db.Column(db.String(15), unique=True, nullable=False)
    password = db.Column(db.String(15), unique=False, nullable=False)
+
+
+@app.route('/display-cards', methods=['GET'])
+def get_data():
+    data = Cards.query.all()
+    return jsonify([str(card) for card in data])
+
+
+if __name__ == "__main__":
+    db.create_all()
+    app.run(debug=True)
+
+
