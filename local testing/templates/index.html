@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+    {% block head %}
+
+    {% endblock %}
+
+    {% block body %}
+
+
+<h2>Log In</h2>
+<form action="/login" method = "POST">
+            <p>Name <input type = "text" name = "name" /></p>
+            <p>Password <input type = "text" name = "password" /></p>
+            <p><input type = "submit" value = "Login" /></p>
+ </form>
+
+<h2>Card List</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Attack</th>
+            <th>Defense</th>
+            <th>Cost</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for card in card_list %}
+
+    <tr>
+        <td>{{ card.name }}</td>
+        <td>{{ card.attack }}</td>
+        <td>{{ card.defense }}</td>
+        <td>{{ card.cost }}</td>
+        <td>
+            <a href="/delete/{{card.id}}">Delete</a>
+            <br>
+            <a href="/update/{{card.id}}">Update</a>
+        </td>
+    </tr>
+
+    {% endfor %}
+    </tbody>
+</table>
+
+
+<h2>Create Card</h2>
+ <form action="/" method = "POST">
+            <p>Name <input type = "text" name = "name" /></p>
+            <p>Attack <input type = "integer" name = "attack" /></p>
+            <p>Defense <input type = "integer" name = "defense" /></p>
+            <p>Cost <input type = "integer" name = "cost" /></p>
+            <p><input type = "submit" value = "Submit" /></p>
+ </form>
+
+<br>
+    <h2>Randomize Deck</h2>
+        <form action ="/randomize" method = "POST">
+            <p><input type = "submit" value = "Randomize" /></p>
+        </form>
+
+    {% endblock %}

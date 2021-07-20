@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+    {% block head %}
+
+    {% endblock %}
+
+    {% block body %}
+
+    <h3 class="title">Sign Up</h3>
+        <form method="POST" action="/signup">
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="text" name="name" placeholder="Name" autofocus="">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="password" name="password" placeholder="Password">
+                </div>
+            </div>
+            <button class="button is-block is-info is-large is-fullwidth">Sign Up</button>
+        </form>
+
+
+
+{% endblock %}
