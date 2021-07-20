@@ -6,19 +6,39 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://capstone2021otcg:CS467cardgame!
 
 db = SQLAlchemy(app)
 
-
 class Cards(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
-    name = db.Column(db.String(80), unique=False, nullable=False)
+    name = db.Column(db.String(15), unique=False, nullable=False)
     attack = db.Column(db.Integer, unique=False, nullable=False)
-    defense = db.Column(db.Integer, unique=False, nullable=False)
     cost = db.Column(db.Integer, unique=False, nullable=False)
+    description = db.Column(db.Text, unique=False, nullable=True)
+    image = db.Column(db.LargeBinary, unique=False, nullable=True)
+    deck = db.Column(db.Integer,db.ForeignKey('decks.id'),  nullable=True)
+
+
+class Decks(db.Model):
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    name = db.Column(db.String(80), unique=False, nullable=False)
+    image = db.Column(db.LargeBinary, unique=False, nullable=True)
+    description = db.Column(db.Text, unique=False, nullable=True)
+    user = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
 
 
 class Users(db.Model):
-   id = db.Column(db.Integer, primary_key=True, nullable=False)
-   name = db.Column(db.String(15), unique=True, nullable=False)
-   password = db.Column(db.String(15), unique=False, nullable=False)
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    name = db.Column(db.String(15), unique=True, nullable=False)
+    password = db.Column(db.String(15), unique=False, nullable=False)
+
+
+class Games(db.Model):
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    name = db.Column(db.String(15), unique=True, nullable=False)
+    description = db.Column(db.Text, unique=False, nullable=True)
+    total_turns = db.Column(db.Integer, unique=True, nullable=False)
+    health_pool = db.Column(db.Integer, unique=False, nullable=False)
+    time_limit = db.Column(db.Integer, unique=True, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
 
 
 @app.route('/cards', methods=['GET', 'POST'])
