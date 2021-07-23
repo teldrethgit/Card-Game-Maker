@@ -42,7 +42,21 @@ class Games(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 
-
+@app.route('/signup', methods=['POST', 'GET'])
+def signup():
+    if request.method == 'POST':
+        name = request.form['name']
+        password = request.form['password']
+        user = Users.query.filter_by(name=name).first()
+        if user:
+            return "User already exists"
+        else:
+            new_user = Users(name=name, password=password)
+            db.session.add(new_user)
+            db.session.commit()
+            return ('', 204)
+    
+    
 @app.route('/cards', methods=['GET', 'POST'])
 def cards_get_post():
     if request.method == 'GET':
