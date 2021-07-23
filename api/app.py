@@ -54,7 +54,7 @@ def signup():
             new_user = Users(name=name, password=password)
             db.session.add(new_user)
             db.session.commit()
-            return ('', 204)
+            return ('', 201)
     
     
 @app.route('/cards', methods=['GET', 'POST'])
