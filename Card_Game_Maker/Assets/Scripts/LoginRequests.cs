@@ -27,12 +27,12 @@ public class LoginRequests : MonoBehaviour
         if(UserName == "" || Password == "") {yield break;}
 
         List<IMultipartFormSection> inputForm = new List<IMultipartFormSection>();
-        inputForm.Add(new MultipartFormDataSection("Username", UserName));
-        inputForm.Add(new MultipartFormDataSection("Password", Password));
+        inputForm.Add(new MultipartFormDataSection("name", UserName));
+        inputForm.Add(new MultipartFormDataSection("password", Password));
         
         UnityWebRequest webRequest = UnityWebRequest.Post("https://osucapstone.herokuapp.com/login", inputForm);
         yield return webRequest.SendWebRequest();
-
+       
         if (webRequest.responseCode == 200)
         {
             login.SetActive(false);
@@ -57,9 +57,10 @@ public class LoginRequests : MonoBehaviour
         if(UserName == "" || Password == "") {yield break;}
 
         List<IMultipartFormSection> inputForm = new List<IMultipartFormSection>();
-        inputForm.Add(new MultipartFormDataSection("Username", UserName));
-        inputForm.Add(new MultipartFormDataSection("Password", Password));
-        
+        inputForm.Add(new MultipartFormDataSection("name", UserName));
+        inputForm.Add(new MultipartFormDataSection("password", Password));
+ 
+
         UnityWebRequest webRequest = UnityWebRequest.Post("https://osucapstone.herokuapp.com/signup", inputForm);
         yield return webRequest.SendWebRequest();
 
