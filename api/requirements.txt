@@ -12,4 +12,4 @@ MarkupSafe==2.0.1
 mysqlclient==2.0.3
 SQLAlchemy==1.4.21
 Werkzeug==2.0.1
-os==3.9
+
