@@ -1,9 +1,7 @@
-from coolname import generate_slug
 from flask import Flask, render_template, request, redirect, session, jsonify
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, current_user, logout_user, login_required
-import random
 import os
 
 # Database Configs
