@@ -62,7 +62,7 @@ def signup():
         password = request.form['password']
         user = Users.query.filter_by(name=name).first()
         if user:
-            return "User already exists"
+            return ('', 401)
         else:
             new_user = Users(name=name, password=password)
             db.session.add(new_user)
@@ -78,7 +78,7 @@ def login():
         user = Users.query.filter_by(name=name).first()
         remember = True
         if not user or user.password != password:
-            return 'Incorrect credentials or user does not exist'
+            return ('', 401)
         else:
             login_user(user, remember=remember)
             return ('', 200)
