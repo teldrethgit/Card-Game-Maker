@@ -21,6 +21,19 @@ def load_user(user_id):
     return Users.query.get(user_id)
 
 
+def JSONcard(card):
+    return (
+        {
+            "id": card.id, 
+            "name": card.name, 
+            "attack": card.attack, 
+            "cost": card.cost, 
+            "description": card.description, 
+            "image": card.image, 
+            "deck": card.deck
+        })
+
+
 class Cards(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     name = db.Column(db.String(15), unique=False, nullable=False)
@@ -109,11 +122,17 @@ def games_get_post():
         return ('', 204)
     
     
+@app.route('/decks/<int:id>', methods=['GET'])
+def deck_get(id):
+    data = Cards.query.filter_by(deck = id)
+    return jsonify([JSONcard(card) for card in data])
+        
+        
 @app.route('/cards', methods=['GET', 'POST'])
 def cards_get_post():
     if request.method == 'GET':
         data = Cards.query.all()
-        return jsonify([{"name": card.name} for card in data])
+        return jsonify([JSONcard(card) for card in data])
 
     elif request.method == 'POST':
         name = request.form['name']
@@ -148,7 +167,7 @@ def cards_put_delete(id):
         card_to_delete = Cards.query.get_or_404(id)
         db.session.delete(card_to_delete)
         db.session.commit()
-        return redirect('', 204)
+        return ('', 204)
 
 if __name__ == "__main__":
     db.create_all()
