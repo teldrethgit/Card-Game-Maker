@@ -122,6 +122,29 @@ def games_get_post():
         return ('', 204)
     
     
+@app.route('/games/<int:id>', methods=['PUT', 'DELETE'])
+def games_put_delete(id):
+    if request.method == 'PUT':
+        game = Games.query.get_or_404(id)
+        try:
+            name = request.form['name']
+            description = request.form['description']
+            total_turns = request.form['total_turns']
+            health_pool = request.form['health_pool']
+            time_limit = request.form['time_limit']
+            user_id = current_user.id
+            db.session.commit()
+            return ('', 204)
+        except:
+            return 'There was an issue updating the game'
+
+    elif request.method == 'DELETE':
+        game_to_delete = Games.query.get_or_404(id)
+        db.session.delete(game_to_delete)
+        db.session.commit()
+        return ('', 204)
+    
+    
 @app.route('/decks/<int:id>', methods=['GET'])
 def deck_get(id):
     data = Cards.query.filter_by(deck = id)
