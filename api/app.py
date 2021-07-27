@@ -166,10 +166,12 @@ def cards_get_post():
         description = request.form['description']
         image = request.form['image']
         deck = request.form['deck']
-        card_contents = Cards(name=name, attack=attack,health=health, cost=cost, description=description, image=image, deck=deck)
+        card_contents = Cards(name=name, attack=attack, health=health, cost=cost, description=description, image=image, deck=deck)
         db.session.add(card_contents)
         db.session.commit()
         return ('', 204)
+    else:
+        return ('', 400)
 
     
 @app.route('/cards/<int:id>', methods=['PUT', 'DELETE'])
