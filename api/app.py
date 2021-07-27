@@ -166,6 +166,8 @@ def cards_get_post():
         description = request.form['description']
         image = request.form['image']
         deck = request.form['deck']
+        if deck == "None":
+            deck = None
         card_contents = Cards(name=name, attack=attack,health=health, cost=cost, description=description, image=image, deck=deck)
         db.session.add(card_contents)
         db.session.commit()
