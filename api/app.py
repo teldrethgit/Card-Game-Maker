@@ -164,9 +164,9 @@ def cards_get_post():
         attack = request.form['attack']
         cost = request.form['cost']
         description = request.form['description']
-        image = request.form['image']
+        #image = request.form['image']
         deck = request.form['deck']
-        card_contents = Cards(name=name, health=health, attack=attack, cost=cost, description=description, image=image, deck=deck)
+        card_contents = Cards(name=name, health=health, attack=attack, cost=cost, description=description, deck=deck)
         db.session.add(card_contents)
         db.session.commit()
         return ('', 204)
