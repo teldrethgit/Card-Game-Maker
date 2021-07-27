@@ -37,6 +37,7 @@ def JSONcard(card):
 class Cards(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     name = db.Column(db.String(15), unique=False, nullable=False)
+    health = db.Column(db.Integer, unique=False, nullable=False)
     attack = db.Column(db.Integer, unique=False, nullable=False)
     cost = db.Column(db.Integer, unique=False, nullable=False)
     description = db.Column(db.Text, unique=False, nullable=True)
@@ -160,11 +161,12 @@ def cards_get_post():
     elif request.method == 'POST':
         name = request.form['name']
         attack = request.form['attack']
+        health = request.form['health']
         cost = request.form['cost']
         description = request.form['description']
         image = request.form['image']
         deck = request.form['deck']
-        card_contents = Cards(name=name, attack=attack, cost=cost, description=description, image=image, deck=deck)
+        card_contents = Cards(name=name, attack=attack,health=health, cost=cost, description=description, image=image, deck=deck)
         db.session.add(card_contents)
         db.session.commit()
         return ('', 204)
