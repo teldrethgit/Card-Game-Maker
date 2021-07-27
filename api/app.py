@@ -144,8 +144,26 @@ def games_put_delete(id):
         db.session.delete(game_to_delete)
         db.session.commit()
         return ('', 204)
-    
-    
+
+
+@app.route('/decks', methods=['GET','POST'])
+def decks_get_post():
+    if request.method == 'GET':
+        data = Decks.query.all()
+        return jsonify([JSONcard(deck) for deck in data])
+
+    elif request.method == 'POST':
+        name = request.form['name']
+        image = request.form['image']
+        description = request.form['description']
+        user_id = current_user.id
+        deck_contents = Cards(name=name, image=image, description=description, user_id=user_id)
+        db.session.add(deck_contents)
+        db.session.commit()
+        return ('', 204)
+    else:
+        return ('', 400)  
+
 @app.route('/decks/<int:id>', methods=['GET'])
 def deck_get(id):
     data = Cards.query.filter_by(deck = id)
@@ -160,18 +178,18 @@ def cards_get_post():
 
     elif request.method == 'POST':
         name = request.form['name']
-        attack = request.form['attack']
         health = request.form['health']
+        attack = request.form['attack']
         cost = request.form['cost']
         description = request.form['description']
-        image = request.form['image']
+        #image = request.form['image']
         deck = request.form['deck']
-        if deck == "None":
-            deck = None
-        card_contents = Cards(name=name, attack=attack,health=health, cost=cost, description=description, image=image, deck=deck)
+        card_contents = Cards(name=name, health=health, attack=attack, cost=cost, description=description, deck=deck)
         db.session.add(card_contents)
         db.session.commit()
         return ('', 204)
+    else:
+        return ('', 400)
 
     
 @app.route('/cards/<int:id>', methods=['PUT', 'DELETE'])
