@@ -178,6 +178,7 @@ def cards_put_delete(id):
         card = Cards.query.get_or_404(id)
         try:
             name = request.form['name']
+            health = request.form['health']
             attack = request.form['attack']
             cost = request.form['cost']
             description = request.form['description']
