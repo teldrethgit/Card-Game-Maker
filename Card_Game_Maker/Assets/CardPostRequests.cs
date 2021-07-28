@@ -70,12 +70,12 @@ public class CardPostRequests : MonoBehaviour
 
 /*
 
-public void SendSignUp()
+public void GetRequest()
 {
-    StartCoroutine(SignUp());
+    StartCoroutine(CardGetRequest());
 }
 
-IEnumerator SignUp()
+IEnumerator CardGetRequest()
 {
     string UserName = GameObject.Find("UserNameInputSU").GetComponent<TMP_InputField>().text;
     string Password = GameObject.Find("PasswordInputSU").GetComponent<TMP_InputField>().text;
