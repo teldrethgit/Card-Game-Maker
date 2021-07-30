@@ -24,7 +24,6 @@ public class DecksRequests : MonoBehaviour
 
         string DeckName = GameObject.Find("DeckNameCreate").GetComponent<TMP_InputField>().text;
         
-        
 
         if (DeckName == "") { yield break; }
 

@@ -20,7 +20,7 @@ List<string> numbers = new List<string>() { "124", "244", "544"};
   
 
     IEnumerator RequestDecks(string uri)
-    {Debug.Log("STart");
+    {
         UnityWebRequest webRequest = UnityWebRequest.Get(uri);
         yield return webRequest.SendWebRequest();
 
@@ -43,7 +43,10 @@ Debug.Log(webRequest.responseCode);
                     Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
 
                     //data = webRequest.downloadHandler.text;
-                     
+                    byte[] results = webRequest.downloadHandler.data;
+                   
+                    
+
                     myDropdown.options.Clear();
                     foreach (string str in numbers)
                     {
