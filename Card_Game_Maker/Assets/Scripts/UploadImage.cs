@@ -3,17 +3,16 @@ using UnityEngine.UI;
 using System;
 using System.Collections;
 
+//This C# script solution is based on work that can be found at https://github.com/greggman/getuserimage-unity-webgl
+
 public class UploadImage : MonoBehaviour
 {
 	string[] editData = new string[6];
 	
     public void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
             // NOTE: gameObject.name MUST BE UNIQUE!!!!
             GetImage.GetImageFromUserAsync(gameObject.name, "ReceiveImage");
-        }
     }
 
     static string s_dataUrlPrefix = "data:image/png;base64,";

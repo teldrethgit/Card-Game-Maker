@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
+//This script solution is based on work that can be found at https://github.com/greggman/getuserimage-unity-webgl
+
 public class GetImage : MonoBehaviour
 {
 

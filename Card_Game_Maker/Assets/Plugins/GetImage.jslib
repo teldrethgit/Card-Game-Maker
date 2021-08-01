@@ -1,7 +1,7 @@
+//This Javascript solution is based on work that can be found at https://github.com/greggman/getuserimage-unity-webgl
+
 var getImage = {
     getImageFromBrowser: function(objectNamePtr, funcNamePtr) {
-      // Because unity is currently bad at JavaScript we can't use standard
-      // JavaScript idioms like closures so we have to use global variables :(
       window.becauseUnitysBadWithJavacript_getImageFromBrowser =
           window.becauseUnitysBadWithJavacript_getImageFromBrowser || {
          busy: false,
@@ -69,9 +69,9 @@ var getImage = {
             '</style>                                                   ',
             '<div class="getimage">                                     ',
             '    <div>                                                  ',
-            '      <label for="photo">click to choose an image</label>  ',
+            '      <label for="photo">Click Here</label>  ',
             '      <input id="photo" type="file" accept="image/*"/><br/>',
-            '      <a>cancel</a>                                        ',
+            '      <a>Cancel</a>                                        ',
             '    </div>                                                 ',
             '</div>                                                     ',
           ].join('\n');
