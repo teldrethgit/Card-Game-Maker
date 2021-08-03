@@ -40,7 +40,6 @@ class Cards(db.Model):
     health = db.Column(db.Integer, unique=False, nullable=False)
     attack = db.Column(db.Integer, unique=False, nullable=False)
     cost = db.Column(db.Integer, unique=False, nullable=False)
-    description = db.Column(db.Text, unique=False, nullable=True)
     image = db.Column(db.LargeBinary, unique=False, nullable=True)
     deck = db.Column(db.Integer,db.ForeignKey('decks.id'),  nullable=True)
 
