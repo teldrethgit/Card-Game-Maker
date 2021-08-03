@@ -12,5 +12,8 @@ public class Card
     public int id;
     public object image;
     public string name;
+    public int health = 5;
     public GameObject card;
+    public bool inField = false;
+    public bool hasAttacked = true;
 }
