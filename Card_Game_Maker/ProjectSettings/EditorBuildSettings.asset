@@ -11,5 +11,20 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Index.unity
     guid: 0c573ba2b26de754589335dd4ad59238
+  - enabled: 1
+    path: Assets/Scenes/Games.unity
+    guid: 551643b0a5439d04cb1aac2590a3e920
+  - enabled: 1
+    path: Assets/Scenes/Authentication.unity
+    guid: 7c8ae18c233f237479eb7018efd3f16f
+  - enabled: 1
+    path: Assets/Scenes/Cards.unity
+    guid: 8eccc57c30f8ab64488d28ba396ac007
+  - enabled: 1
+    path: Assets/Scenes/Decks.unity
+    guid: c9470e57e29180c4f918f702426fe4ab
+  - enabled: 1
+    path: Assets/Scenes/Play.unity
+    guid: 89843302f3a2e4a4ea706cfbafdd23c1
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 41c801657b82fd144ab5aa3f03073395, type: 2}
