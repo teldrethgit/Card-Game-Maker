@@ -71,4 +71,23 @@ public class LoginRequests : MonoBehaviour
             signUpFailedText.SetActive(true);
         }
     }
+
+    public void SendLogout()
+    {
+        StartCoroutine(Logout());
+    }
+    IEnumerator Logout()
+    {
+        UnityWebRequest webRequest = UnityWebRequest.Get("https://osucapstone.herokuapp.com/logout");
+        yield return webRequest.SendWebRequest();
+
+        if (webRequest.responseCode == 200)
+        {
+            SceneManager.LoadScene("Authentication");
+        }
+        else 
+        {
+            Debug.Log("ruh roh request failed");
+        }
+    }
 }
