@@ -5,11 +5,20 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/Index.unity
-    guid: 0c573ba2b26de754589335dd4ad59238
+    path: Assets/Scenes/Authentication.unity
+    guid: 5bf758a45c351594692580ca722bb398
+  - enabled: 1
+    path: Assets/Scenes/Cards.unity
+    guid: 541d36437c64b6440aeb85b847d7f882
+  - enabled: 1
+    path: Assets/Scenes/Decks.unity
+    guid: ec1d4004a6575ac46b148b42dfc503bd
+  - enabled: 1
+    path: Assets/Scenes/Games.unity
+    guid: e91718e9d8bbc21479392e4b905225dd
+  - enabled: 1
+    path: Assets/Scenes/Play.unity
+    guid: 89843302f3a2e4a4ea706cfbafdd23c1
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 41c801657b82fd144ab5aa3f03073395, type: 2}
