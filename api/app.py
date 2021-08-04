@@ -118,7 +118,7 @@ def logout():
 def games_get_post():
     if request.method == 'GET':
         data = Games.query.all()
-        return jsonify([{"name": game.name} for game in data])
+        return jsonify([JSONgame(game) for game in data])
     
     elif request.method == 'POST':
         name = request.form['name']
