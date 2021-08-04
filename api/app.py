@@ -45,6 +45,14 @@ def JSONgame(game):
             "user_id": game.user_id
         })
 
+def JSONdeck(deck):
+      return (
+        {
+            "id": deck.id,
+            "name": deck.name,
+            "description": deck.description
+        })
+
 
 class Cards(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
@@ -59,7 +67,6 @@ class Cards(db.Model):
 class Decks(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     name = db.Column(db.String(80), unique=False, nullable=False)
-    image = db.Column(db.LargeBinary, unique=False, nullable=True)
     description = db.Column(db.Text, unique=False, nullable=True)
     user = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
 
@@ -164,8 +171,8 @@ def games_put_delete(id):
 @app.route('/decks', methods=['GET','POST'])
 def decks_get_post():
     if request.method == 'GET':
-        data = Decks.query.all()
-        return jsonify([JSONcard(deck) for deck in data])
+        data = Decks.query.filter_by(user = current_user.id)
+        return jsonify([JSONdeck(deck) for deck in data])
 
     elif request.method == 'POST':
         name = request.form['name']
