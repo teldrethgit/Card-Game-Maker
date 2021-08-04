@@ -176,21 +176,43 @@ def decks_get_post():
 
     elif request.method == 'POST':
         name = request.form['name']
-        image = request.form['image']
         description = request.form['description']
-        user_id = current_user.id
-        deck_contents = Cards(name=name, image=image, description=description, user_id=user_id)
+        user = current_user.id
+        deck_contents = Decks(name=name, description=description, user=user)
         db.session.add(deck_contents)
         db.session.commit()
         return ('', 204)
+
     else:
         return ('', 400)  
 
-@app.route('/decks/<int:id>', methods=['GET'])
-def deck_get(id):
+@app.route('/decks/<int:id>/cards', methods=['GET'])
+def deck_get_cards(id):
     data = Cards.query.filter_by(deck = id)
     return jsonify([JSONcard(card) for card in data])
-        
+      
+@app.route('/decks/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+def deck_get_put_delete(id):
+
+    if request.method == 'GET':
+        return jsonify(JSONdeck(db.session.get(Decks, id)))
+
+    elif request.method == 'PUT':
+        deck = Decks.query.get_or_404(id)
+        try:
+            deck.name = request.form['name']
+            deck.description = request.form['description']
+            deck.user = current_user.id
+            db.session.commit()
+            return ('', 204)
+        except:
+            return 'There was an issue updating the game'
+
+    elif request.method == 'DELETE':
+        deck_to_delte = Decks.query.get_or_404(id)
+        db.session.delete(deck_to_delte)
+        db.session.commit()
+        return ('', 204)
         
 @app.route('/cards', methods=['GET', 'POST'])
 def cards_get_post():
