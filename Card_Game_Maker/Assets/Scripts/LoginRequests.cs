@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 
@@ -35,10 +36,7 @@ public class LoginRequests : MonoBehaviour
        
         if (webRequest.responseCode == 200)
         {
-            login.SetActive(false);
-            chooseGameMenu.SetActive(true);
-            logOutButton.SetActive(true);
-            title.GetComponent<TMP_Text>().text ="Choose a Game";
+		    SceneManager.LoadScene("Games");
         }
         else 
         {
@@ -66,10 +64,7 @@ public class LoginRequests : MonoBehaviour
 
         if (webRequest.responseCode == 201)
         {
-            signUp.SetActive(false);
-            chooseGameMenu.SetActive(true);
-            logOutButton.SetActive(true);
-            title.GetComponent<TMP_Text>().text ="Choose a Game";
+            SceneManager.LoadScene("Games");
         }
         else 
         {
