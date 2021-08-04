@@ -39,6 +39,7 @@ def JSONgame(game):
             "id": game.id,
             "name": game.name,
             "description": game.description,
+            "health_pool": game.health_pool,
             "total_turns": game.total_turns,
             "time_limit": game.time_limit,
             "user_id": game.user_id
