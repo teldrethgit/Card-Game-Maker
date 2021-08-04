@@ -33,6 +33,17 @@ def JSONcard(card):
             "deck": card.deck
         })
 
+def JSONgame(game):
+    return (
+        {
+            "id": game.id,
+            "name": game.name,
+            "description": game.description,
+            "total_turns": game.total_turns,
+            "time_limit": game.time_limit,
+            "user_id": game.user_id
+        })
+
 
 class Cards(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
@@ -116,11 +127,15 @@ def games_get_post():
         health_pool = request.form['health_pool']
         time_limit = request.form['time_limit']
         user_id = current_user.id
-        game_contents = Games(name=name, description=description, total_turns=total_turns, health_pool=health_pool, time_limit=time_limit ,user_id=user_id)
+        game_names = Games.query.filter_by(name=name).first()
+        if game_names:
+            return ('', 401)
+        game_contents = Games(name=name, description=description, total_turns=total_turns, health_pool=health_pool,
+                            time_limit=time_limit, user_id=user_id)
         db.session.add(game_contents)
         db.session.commit()
         return ('', 204)
-    
+        
     
 @app.route('/games/<int:id>', methods=['PUT', 'DELETE'])
 def games_put_delete(id):
@@ -180,10 +195,9 @@ def cards_get_post():
         health = request.form['health']
         attack = request.form['attack']
         cost = request.form['cost']
-        description = request.form['description']
         #image = request.form['image']
         deck = request.form['deck']
-        card_contents = Cards(name=name, health=health, attack=attack, cost=cost, description=description, deck=deck)
+        card_contents = Cards(name=name, health=health, attack=attack, cost=cost, deck=deck)
         db.session.add(card_contents)
         db.session.commit()
         return ('', 204)
@@ -200,7 +214,6 @@ def cards_put_delete(id):
             health = request.form['health']
             attack = request.form['attack']
             cost = request.form['cost']
-            description = request.form['description']
             image = request.form['image']
             deck = request.form['deck']
             db.session.commit()
