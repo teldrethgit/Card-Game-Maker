@@ -50,7 +50,7 @@ public class CardRequests : MonoBehaviour
         //inputForm.Add(new MultipartFormDataSection("image", null));
         
 
-        UnityWebRequest webRequest = UnityWebRequest.Post("http://127.0.0.1:8000/cards", inputForm);
+        UnityWebRequest webRequest = UnityWebRequest.Post("https://osucapstone.herokuapp.com/cards", inputForm);
         yield return webRequest.SendWebRequest();
         Debug.Log(webRequest.responseCode);
 
@@ -60,7 +60,7 @@ public class CardRequests : MonoBehaviour
             cardSuccessText.SetActive(true);
             cardFailText.SetActive(false);
             CreateNewCardMenu.SetActive(false);
-            //title.GetComponent<TMP_Text>().text = "Choose a Game";
+           
         }
         else
         {
@@ -69,39 +69,3 @@ public class CardRequests : MonoBehaviour
     }
 }
 
-
-/*
-
-public void SendSignUp()
-{
-    StartCoroutine(SignUp());
-}
-
-IEnumerator SignUp()
-{
-    string UserName = GameObject.Find("UserNameInputSU").GetComponent<TMP_InputField>().text;
-    string Password = GameObject.Find("PasswordInputSU").GetComponent<TMP_InputField>().text;
-    if (UserName == "" || Password == "") { yield break; }
-
-    List<IMultipartFormSection> inputForm = new List<IMultipartFormSection>();
-    inputForm.Add(new MultipartFormDataSection("name", UserName));
-    inputForm.Add(new MultipartFormDataSection("password", Password));
-
-
-    UnityWebRequest webRequest = UnityWebRequest.Post("https://osucapstone.herokuapp.com/signup", inputForm);
-    yield return webRequest.SendWebRequest();
-
-    if (webRequest.responseCode == 201)
-    {
-        signUp.SetActive(false);
-        chooseGameMenu.SetActive(true);
-        logOutButton.SetActive(true);
-        title.GetComponent<TMP_Text>().text = "Choose a Game";
-    }
-    else
-    {
-        signUpFailedText.SetActive(true);
-    }
-}
-}
-*/

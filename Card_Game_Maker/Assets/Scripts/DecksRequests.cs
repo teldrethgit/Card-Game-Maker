@@ -31,7 +31,7 @@ public class DecksRequests : MonoBehaviour
         inputForm.Add(new MultipartFormDataSection("name", DeckName));
         
 
-        UnityWebRequest webRequest = UnityWebRequest.Post("http://127.0.0.1:8000/decks", inputForm);
+        UnityWebRequest webRequest = UnityWebRequest.Post("https://osucapstone.herokuapp.com/decks", inputForm);
         yield return webRequest.SendWebRequest();
         Debug.Log(webRequest.responseCode);
 
@@ -48,4 +48,3 @@ public class DecksRequests : MonoBehaviour
 }
 
 
-//http://127.0.0.1:8000/

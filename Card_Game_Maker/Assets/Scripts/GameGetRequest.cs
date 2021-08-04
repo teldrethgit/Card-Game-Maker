@@ -27,7 +27,7 @@ public class GameGetRequest : MonoBehaviour
     
     IEnumerator getGames()
     {
-        UnityWebRequest webRequest = UnityWebRequest.Get("http://127.0.0.1:8000/games");
+        UnityWebRequest webRequest = UnityWebRequest.Get("https://osucapstone.herokuapp.com/games");
         yield return webRequest.SendWebRequest();
 
         if (webRequest.responseCode == 200)

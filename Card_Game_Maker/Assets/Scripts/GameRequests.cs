@@ -40,7 +40,7 @@ public class GameRequests : MonoBehaviour
         inputForm.Add(new MultipartFormDataSection("description", Description));
 
 
-        UnityWebRequest webRequest = UnityWebRequest.Post("http://127.0.0.1:8000/games", inputForm);
+        UnityWebRequest webRequest = UnityWebRequest.Post("https://osucapstone.herokuapp.com/games", inputForm);
         yield return webRequest.SendWebRequest();
         Debug.Log(webRequest.responseCode);
 
