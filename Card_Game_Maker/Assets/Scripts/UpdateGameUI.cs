@@ -13,7 +13,5 @@ public class UpdateGameUI : MonoBehaviour
         GamesObject.transform.Find("Canvas").Find("GameTotalTurns").Find("TotalTurns").GetComponent<TMP_Text>().text = game.total_turns.ToString();
         GamesObject.transform.Find("Canvas").Find("GameTimeLimit").Find("TimeLimit").GetComponent<TMP_Text>().text = game.time_limit.ToString();
         GamesObject.transform.Find("Canvas").Find("GameHealth").Find("HealthPool").GetComponent<TMP_Text>().text = game.health_pool.ToString();
-        // still need to add health to the api/db
-        //CardObject.transform.Find("Canvas").Find("Health").Find("HealthNum").GetComponent<TMP_Text>().text = card.health.ToString();
     }
 }

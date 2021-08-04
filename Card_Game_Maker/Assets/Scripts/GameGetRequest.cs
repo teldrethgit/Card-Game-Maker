@@ -9,15 +9,9 @@ using TMPro;
 public class GameGetRequest : MonoBehaviour
 {
     public GameObject GamePrefab;
-    public GameObject GameSlot1;
-    public GameObject GameSlot2;
-    public GameObject GameSlot3;
-    public GameObject GameSlot4;
-    public GameObject GameSlot5;
-    public GameObject GameSlot6;
-    public GameObject GameSlot7;
-    public GameObject tempGames;
- 
+    public GameObject PlacementTile;
+    public GameObject Scroller;
+    
     
     void Start()
     {
@@ -41,30 +35,13 @@ public class GameGetRequest : MonoBehaviour
             Debug.Log(webRequest.responseCode);
             Game[] games = JsonHelper.FromJson<Game>(fixJson(webRequest.downloadHandler.text));
             int index = 0;
-            foreach (Game game in games)
-            {
-                game.game = Instantiate(GamePrefab, tempGames.GetComponent<Transform>());
-                UpdateGameUI.Update(game);
 
-                switch (index)
-                {
-                    case 0:
-                        game.game.transform.SetParent(GameSlot1.transform, false);
-                        break;
-                    case 1:
-                        game.game.transform.SetParent(GameSlot2.transform, false);
-                        break;
-                    case 2:
-                        game.game.transform.SetParent(GameSlot3.transform, false);
-                        break;
-                    case 3:
-                        game.game.transform.SetParent(GameSlot4.transform, false);
-                        break;
-                    case 4:
-                        game.game.transform.SetParent(GameSlot5.transform, false);
-                        break;
-                }
-                index++;
+            foreach (Game game in games)
+            {   print(game.name);
+                game.game = Instantiate(GamePrefab,new Vector3(-1000+index,-150,0), Quaternion.identity);
+                UpdateGameUI.Update(game);
+                game.game.transform.SetParent(Scroller.transform, false);
+                index += 750;
             }
         }
         else
