@@ -81,9 +81,9 @@ class Games(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     name = db.Column(db.String(15), unique=True, nullable=False)
     description = db.Column(db.Text, unique=False, nullable=True)
-    total_turns = db.Column(db.Integer, unique=True, nullable=False)
+    total_hand = db.Column(db.Integer, unique=True, nullable=False)
     health_pool = db.Column(db.Integer, unique=False, nullable=False)
-    time_limit = db.Column(db.Integer, unique=True, nullable=False)
+    starting_hand = db.Column(db.Integer, unique=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
 
@@ -131,15 +131,15 @@ def games_get_post():
     elif request.method == 'POST':
         name = request.form['name']
         description = request.form['description']
-        total_turns = request.form['total_turns']
+        starting_hand = request.form['starting_hand']
         health_pool = request.form['health_pool']
-        time_limit = request.form['time_limit']
+        total_hand = request.form['total_hand']
         user_id = current_user.id
         game_names = Games.query.filter_by(name=name).first()
         if game_names:
             return ('', 401)
-        game_contents = Games(name=name, description=description, total_turns=total_turns, health_pool=health_pool,
-                            time_limit=time_limit, user_id=user_id)
+        game_contents = Games(name=name, description=description, starting_hand=starting_hand, health_pool=health_pool,
+                            total_hand=total_hand, user_id=user_id)
         db.session.add(game_contents)
         db.session.commit()
         return ('', 204)
@@ -152,9 +152,9 @@ def games_put_delete(id):
         try:
             name = request.form['name']
             description = request.form['description']
-            total_turns = request.form['total_turns']
+            total_hand = request.form['total_hand']
             health_pool = request.form['health_pool']
-            time_limit = request.form['time_limit']
+            starting_hand = request.form['starting_hand']
             user_id = current_user.id
             db.session.commit()
             return ('', 204)

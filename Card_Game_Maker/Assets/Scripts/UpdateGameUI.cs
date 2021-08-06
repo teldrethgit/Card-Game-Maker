@@ -13,6 +13,7 @@ public class UpdateGameUI : MonoBehaviour
         GamesObject.transform.Find("Canvas").Find("GameTotalTurns").Find("TotalTurns").GetComponent<TMP_Text>().text = game.total_turns.ToString();
         GamesObject.transform.Find("Canvas").Find("GameHealth").Find("Health").GetComponent<TMP_Text>().text = game.health_pool.ToString();
         GamesObject.transform.Find("Canvas").Find("GameTimeLimit").Find("TimeLimit").GetComponent<TMP_Text>().text = game.time_limit.ToString();
+        GamesObject.transform.Find("Canvas").Find("GameID").Find("ID").GetComponent<TMP_Text>().text = game.id.ToString();
        
     }
 }
