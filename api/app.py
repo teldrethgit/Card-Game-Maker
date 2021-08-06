@@ -145,9 +145,9 @@ def games_get_post():
         return ('', 204)
         
     
-@app.route('/games/<int:id>', methods=['PUT', 'DELETE'])
+@app.route('/games/<int:id>', methods=['POST', 'DELETE'])
 def games_put_delete(id):
-    if request.method == 'PUT':
+    if request.method == 'POST':
         game = Games.query.get_or_404(id)
         try:
             name = request.form['name']
