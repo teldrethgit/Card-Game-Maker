@@ -5,8 +5,8 @@ from flask_login import LoginManager, UserMixin, login_user, current_user, logou
 import os
 
 # Database Configs
-app = Flask(__name__)
-cors = CORS(app)
+app = Flask(__name__, static_url_path="/",static_folder="./", template_folder="./")
+cors = CORS(app, supports_credentials=True)
 app.config['SECRET_KEY'] = os.urandom(24)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://capstone2021otcg:CS467cardgame!@osu-otcg-db.cs3ccyqxyr4e.us-west-1.rds.amazonaws.com/osu-otcg-db'
 
@@ -85,6 +85,11 @@ class Games(db.Model):
     health_pool = db.Column(db.Integer, unique=False, nullable=False)
     starting_hand = db.Column(db.Integer, unique=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 
 @app.route('/signup', methods=['POST', 'GET'])
@@ -200,8 +205,8 @@ def deck_get_put_delete(id):
     elif request.method == 'PUT':
         deck = Decks.query.get_or_404(id)
         try:
-            deck.name = request.form['name']
-            deck.description = request.form['description']
+            deck.name = request.args.get('name')
+            deck.description = request.args.get('description')
             deck.user = current_user.id
             db.session.commit()
             return ('', 204)
