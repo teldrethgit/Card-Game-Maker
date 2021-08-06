@@ -183,7 +183,7 @@ def games_put_delete(id):
             total_hand = request.form['total_hand']
             health_pool = request.form['health_pool']
             starting_hand = request.form['starting_hand']
-            user_id = current_user.id
+             user_id = session.get('id')
             game_contents = Games(name=name, description=description, starting_hand=starting_hand,
                                   health_pool=health_pool,
                                   total_hand=total_hand, user_id=user_id)
