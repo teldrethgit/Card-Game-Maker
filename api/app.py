@@ -1,24 +1,31 @@
 from flask import Flask, render_template, request, redirect, session, jsonify
 from flask_cors import CORS
+import redis
+from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin, login_user, current_user, logout_user, login_required
+#from flask_login import LoginManager, UserMixin, login_user, current_user, logout_user, login_required
 import os
 
 # Database Configs
 app = Flask(__name__, static_url_path="/",static_folder="./", template_folder="./")
 cors = CORS(app, supports_credentials=True)
+r = redis.from_url('redis://:p79ab5ac4e27e5b357bc3cb8769f768bdc14ef9f623f952696475bee269f929e5@ec2-54-162-232-48.compute-1.amazonaws.com:7749')
+SESSION_TYPE = 'redis'
+SESSION_REDIS = r
+app.config.from_object(__name__)
+Session(app)
 app.config['SECRET_KEY'] = os.urandom(24)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://capstone2021otcg:CS467cardgame!@osu-otcg-db.cs3ccyqxyr4e.us-west-1.rds.amazonaws.com/osu-otcg-db'
 
 db = SQLAlchemy(app)
 
 # Flask Login Requirements
-login_manager = LoginManager()
-login_manager.login_view = '/'
-login_manager.init_app(app)
-@login_manager.user_loader
-def load_user(user_id):
-    return Users.query.get(user_id)
+#login_manager = LoginManager()
+#login_manager.login_view = '/'
+#login_manager.init_app(app)
+#@login_manager.user_loader
+#def load_user(user_id):
+#    return Users.query.get(user_id)
 
 
 def JSONcard(card):
@@ -72,7 +79,8 @@ class Decks(db.Model):
     game = db.Column(db.Integer, db.ForeignKey('games.id'), nullable=True)
 
 
-class Users(UserMixin, db.Model):
+#class Users(UserMixin, db.Model):
+class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     name = db.Column(db.String(15), unique=True, nullable=False)
     password = db.Column(db.String(15), unique=False, nullable=False)
@@ -110,6 +118,7 @@ def signup():
             new_user = Users(name=name, password=password)
             db.session.add(new_user)
             db.session.commit()
+            session['id'] = new_user.id
             return ('', 201)
     
     
@@ -123,16 +132,22 @@ def login():
         if not user or user.password != password:
             return ('', 401)
         else:
-            login_user(user, remember=remember)
+            #login_user(user, remember=remember)
+            session['id'] = user.id
             return ('', 200)
 
         
 @app.route('/logout')
 def logout():
-    logout_user()
+    #logout_user()
+    session.pop('id', None)
     return ''
     
     
+@app.route('/sessointest')
+def test():
+    return jsonify(session.get('id'))
+
 @app.route('/games', methods=['GET','POST'])
 def games_get_post():
     if request.method == 'GET':
@@ -145,7 +160,7 @@ def games_get_post():
         starting_hand = request.form['starting_hand']
         health_pool = request.form['health_pool']
         total_hand = request.form['total_hand']
-        user_id = current_user.id
+        user_id = session.get('id')
         game_names = Games.query.filter_by(name=name).first()
         if game_names:
             return ('', 401)
@@ -166,7 +181,7 @@ def games_put_delete(id):
             total_hand = request.form['total_hand']
             health_pool = request.form['health_pool']
             starting_hand = request.form['starting_hand']
-            user_id = current_user.id
+            user_id = session.get('id')
             db.session.commit()
             return ('', 204)
         except:
@@ -182,14 +197,14 @@ def games_put_delete(id):
 @app.route('/decks', methods=['GET','POST'])
 def decks_get_post():
     if request.method == 'GET':
-        data = Decks.query.filter_by(user = current_user.id,game=request.args.get('game'))
+        data = Decks.query.filter_by(user = session.get('id'),game=request.args.get('game'))
         return jsonify([JSONdeck(deck) for deck in data])
 
     elif request.method == 'POST':
         name = request.form['name']
         description = request.form['description']
         game = request.form['game']
-        user = current_user.id
+        user = session.get('id')
         deck_contents = Decks(name=name, description=description, game=game, user=user)
         db.session.add(deck_contents)
         db.session.commit()
@@ -224,14 +239,14 @@ def add_to_deck(deck_id, card_id):
 def deck_get_put_delete(id):
 
     if request.method == 'GET':
-        return jsonify(JSONdeck(db.session.get(Decks, id)))
+        return jsonify(JSONdeck(Decks.query.get_or_404(id)))
 
     elif request.method == 'PUT':
         deck = Decks.query.get_or_404(id)
         try:
             deck.name = request.args.get('name')
             deck.description = request.args.get('description')
-            deck.user = current_user.id
+            deck.user = session.get('id')
             db.session.commit()
             return ('', 204)
         except:
