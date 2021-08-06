@@ -24,12 +24,14 @@ public class GameRequests : MonoBehaviour
   
     //get
     public GameObject GamePrefab;
-    public GameObject PlacementTile;
+    public GameObject UserGamePrefab;
     public GameObject Scroller;
+    public GameObject ScrollerUser;
 
     void Start()
     {
         StartCoroutine(getGames());
+        StartCoroutine(getUserGames());
     }
 
     string fixJson(string value)
@@ -41,7 +43,7 @@ public class GameRequests : MonoBehaviour
     
     IEnumerator getGames()
     {
-        UnityWebRequest webRequest = UnityWebRequest.Get("https://osucapstone.herokuapp.com/games");
+        UnityWebRequest webRequest = UnityWebRequest.Get("http://127.0.0.1:8000/games");
         yield return webRequest.SendWebRequest();
 
         if (webRequest.responseCode == 200)
@@ -64,6 +66,30 @@ public class GameRequests : MonoBehaviour
         }
     }
 
+    IEnumerator getUserGames()
+    {
+        UnityWebRequest webRequest = UnityWebRequest.Get("http://127.0.0.1:8000/games/user");
+        yield return webRequest.SendWebRequest();
+
+        if (webRequest.responseCode == 200)
+        {
+            Debug.Log(webRequest.responseCode);
+            Game[] games = JsonHelper.FromJson<Game>(fixJson(webRequest.downloadHandler.text));
+            int index = 0;
+
+            foreach (Game game in games)
+            { 
+                game.game = Instantiate(UserGamePrefab,new Vector3(-1000+index,-150,0), Quaternion.identity);
+                UpdateGameUI.Update(game);
+                game.game.transform.SetParent(ScrollerUser.transform, false);
+                index += 750;
+            }
+        }
+        else
+        {
+            Debug.Log("response failed");
+        }
+    }
 
 
 
