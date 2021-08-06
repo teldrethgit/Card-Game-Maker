@@ -174,18 +174,24 @@ def games_get_post():
 @app.route('/games/<int:id>', methods=['POST', 'DELETE'])
 def games_put_delete(id):
     if request.method == 'POST':
-        game = Games.query.get_or_404(id)
-        try:
+        game_id = Games.query.filter_by(id=id).first()
+        if game_id:
+            db.session.delete(game_id)
+            db.session.commit()
             name = request.form['name']
             description = request.form['description']
             total_hand = request.form['total_hand']
             health_pool = request.form['health_pool']
             starting_hand = request.form['starting_hand']
-            user_id = session.get('id')
+            user_id = current_user.id
+            game_contents = Games(name=name, description=description, starting_hand=starting_hand,
+                                  health_pool=health_pool,
+                                  total_hand=total_hand, user_id=user_id)
+            db.session.add(game_contents)
             db.session.commit()
-            return ('', 204)
-        except:
-            return 'There was an issue updating the game'
+            return (' ', 204)
+        else:
+            return ('', 401)
 
     elif request.method == 'DELETE':
         game_to_delete = Games.query.get_or_404(id)
