@@ -141,7 +141,7 @@ public class GameRunner : MonoBehaviour
 
     IEnumerator RequestDeck(int player)
     {
-        UnityWebRequest webRequest = UnityWebRequest.Get("https://osucapstone.herokuapp.com/decks/1");
+        UnityWebRequest webRequest = UnityWebRequest.Get("https://osucapstone.herokuapp.com/decks/1/cards");
         yield return webRequest.SendWebRequest();
        
         if (webRequest.responseCode == 200)

@@ -17,7 +17,7 @@ public class DecksRequests : MonoBehaviour
     public GameObject DescriptionInput;
     public GameObject CreateButton;
     public GameObject CreateFailText;
-    public GameObject FailText;
+    public GameObject Index;
     public GameObject EditMenu;
     public GameObject DeckMenu;
     public GameObject EditFailText;
@@ -25,6 +25,8 @@ public class DecksRequests : MonoBehaviour
     public TMP_InputField EditName;
     public TMP_InputField EditDescription;
     public TMP_Text Title;
+    public TMP_Text DisplayName;
+    public TMP_Text DisplayDescription;
     
     private string cookie;
     private Deck[] decks;
@@ -58,11 +60,10 @@ public class DecksRequests : MonoBehaviour
             viewPos.x = 1920 + (750 * (decks.Length - 2));
             DeckFieldOfView.sizeDelta = viewPos;
             DeckFieldOfView.position = new Vector3(viewPos.x, DeckFieldOfView.position.y, DeckFieldOfView.position.z);
-            FailText.GetComponent<TMP_Text>().text = "Success";
         }
         else
         {
-            FailText.GetComponent<TMP_Text>().text = "Fail";
+            Debug.Log("wee woo wee woo");
         }
     }
 
@@ -93,7 +94,6 @@ public class DecksRequests : MonoBehaviour
        
         if (webRequest.responseCode == 204)
         {
-		    Debug.Log("Saved");
             SceneManager.LoadScene("Decks");
         }
         else 
@@ -122,8 +122,10 @@ public class DecksRequests : MonoBehaviour
        
         if (webRequest.responseCode == 204)
         {
-		    Debug.Log("Saved");
-            SceneManager.LoadScene("Decks");
+            DeckMenu.SetActive(true);
+            EditMenu.SetActive(false);
+            DisplayName.text = Name;
+            DisplayDescription.text = Description;
         }
         else 
         {
@@ -145,7 +147,6 @@ public class DecksRequests : MonoBehaviour
        
         if (webRequest.responseCode == 204)
         {
-		    Debug.Log("Saved");
             SceneManager.LoadScene("Decks");
         }
         else 
@@ -163,14 +164,21 @@ public class DecksRequests : MonoBehaviour
             if(d.id == id)
             {
                 editing = d;
-                EditMenu.SetActive(true);
-                DeckMenu.SetActive(false);
+                DeckMenu.SetActive(true);
+                Index.SetActive(false);
                 EditName.SetTextWithoutNotify(d.name);
                 EditDescription.SetTextWithoutNotify(d.description);
                 Title.text = "";
+                DisplayName.text = d.name;
+                DisplayDescription.text = d.description;
                 break;
             }
         }
+    }
+
+    public void ResetScene()
+    {
+        SceneManager.LoadScene("Decks");
     }
 
     private void UpdateDeckUI(GameObject deck, Deck d)

@@ -7,8 +7,7 @@ public class Card
 {
     public int attack;
     public int cost;
-    public int deck;
-    public string description;
+    public int game;
     public int id;
     public object image;
     public string name;

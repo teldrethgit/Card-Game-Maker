@@ -15,7 +15,6 @@ public class LoginRequests : MonoBehaviour
     public GameObject signUp;
     public GameObject login;
     public GameObject title;
-    public TMP_Text TestText;
 
     public void SendLogin()
     {
@@ -89,30 +88,6 @@ public class LoginRequests : MonoBehaviour
         else 
         {
             Debug.Log("ruh roh request failed");
-        }
-    }
-
-     public void TestLogin()
-    {
-        StartCoroutine(tl());
-    }
-
-    IEnumerator tl()
-    {
-        List<IMultipartFormSection> inputForm = new List<IMultipartFormSection>();
-        inputForm.Add(new MultipartFormDataSection("name", "taylor"));
-        inputForm.Add(new MultipartFormDataSection("password", "pass"));
-        
-        UnityWebRequest webRequest = UnityWebRequest.Post("https://osucapstone.herokuapp.com/login", inputForm);
-        yield return webRequest.SendWebRequest();
-       
-        if (webRequest.responseCode == 200)
-        {
-            TestText.text = "success login";
-        }
-        else 
-        {
-            TestText.text = "fail login";
         }
     }
 }
