@@ -44,8 +44,13 @@ public class GameGetRequest : MonoBehaviour
             foreach (Game game in games)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             {   
                 game.game = Instantiate(GamePrefab,new Vector3(-1000+index,-150,0), Quaternion.identity);
+=======
+            {
+                game.game = Instantiate(GamePrefab, tempGames.GetComponent<Transform>());
+>>>>>>> parent of 1019f0b (f)
 =======
             {
                 game.game = Instantiate(GamePrefab, tempGames.GetComponent<Transform>());
