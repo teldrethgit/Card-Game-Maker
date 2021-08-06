@@ -43,7 +43,7 @@ public class GameRequests : MonoBehaviour
     
     IEnumerator getGames()
     {
-        UnityWebRequest webRequest = UnityWebRequest.Get("http://127.0.0.1:8000/games");
+        UnityWebRequest webRequest = UnityWebRequest.Get("https://osucapstone.herokuapp.com/games");
         yield return webRequest.SendWebRequest();
 
         if (webRequest.responseCode == 200)
@@ -68,7 +68,7 @@ public class GameRequests : MonoBehaviour
 
     IEnumerator getUserGames()
     {
-        UnityWebRequest webRequest = UnityWebRequest.Get("http://127.0.0.1:8000/games/user");
+        UnityWebRequest webRequest = UnityWebRequest.Get("https://osucapstone.herokuapp.com/games/user");
         yield return webRequest.SendWebRequest();
 
         if (webRequest.responseCode == 200)
@@ -102,7 +102,9 @@ public class GameRequests : MonoBehaviour
 
     IEnumerator gameCreate()
     {
-
+        
+        
+        string PublishToggle;
         string GameName = GameObject.Find("GameNameInputSU").GetComponent<TMP_InputField>().text;
         string PlayerHealth = GameObject.Find("PlayerHealthInputSU").GetComponent<TMP_InputField>().text;
         string TotalHand = GameObject.Find("TotalHandSizeInputSU").GetComponent<TMP_InputField>().text;
@@ -110,13 +112,18 @@ public class GameRequests : MonoBehaviour
         string Description = GameObject.Find("DescriptionInputSU").GetComponent<TMP_InputField>().text;
 
         if (GameName == "" || PlayerHealth == null || TotalHand == null || StartingHand == null || Description == "") { yield break; }
-
+        if (GameObject.Find("GamePublishToggle").GetComponent<Toggle>().isOn == true){
+            PublishToggle = "true";
+        } else{
+            PublishToggle = "false";
+        }
         List<IMultipartFormSection> inputForm = new List<IMultipartFormSection>();
         inputForm.Add(new MultipartFormDataSection("name", GameName));
         inputForm.Add(new MultipartFormDataSection("health_pool", PlayerHealth));
         inputForm.Add(new MultipartFormDataSection("total_hand", TotalHand));
         inputForm.Add(new MultipartFormDataSection("starting_hand", StartingHand));
         inputForm.Add(new MultipartFormDataSection("description", StartingHand));
+        inputForm.Add(new MultipartFormDataSection("published", PublishToggle));
 
 
         UnityWebRequest webRequest = UnityWebRequest.Post("https://osucapstone.herokuapp.com/games", inputForm);
@@ -144,6 +151,7 @@ public class GameRequests : MonoBehaviour
 
     IEnumerator gamePut()
     {
+        string PublishToggle;
         string gameID = GameID.GetComponent<TMPro.TextMeshProUGUI>().text;
         string GameName = GameObject.Find("GameNameInputSU").GetComponent<TMP_InputField>().text;
         string PlayerHealth= GameObject.Find("PlayerHealthInputSU").GetComponent<TMP_InputField>().text;
@@ -156,13 +164,18 @@ public class GameRequests : MonoBehaviour
         if (Int32.Parse(TotalHandSize) < Int32.Parse(StartingHandSize)) {
             yield break;
         }
-
+        if (GameObject.Find("GamePublishToggle").GetComponent<Toggle>().isOn == true){
+            PublishToggle = "true";
+        } else{
+            PublishToggle = "false";
+        }
         List<IMultipartFormSection> inputForm = new List<IMultipartFormSection>();
         inputForm.Add(new MultipartFormDataSection("name", GameName));
         inputForm.Add(new MultipartFormDataSection("health_pool", PlayerHealth));
         inputForm.Add(new MultipartFormDataSection("total_hand", TotalHandSize));
         inputForm.Add(new MultipartFormDataSection("starting_hand", StartingHandSize));
         inputForm.Add(new MultipartFormDataSection("description", Description));
+        inputForm.Add(new MultipartFormDataSection("published", PublishToggle));
 
 
         UnityWebRequest webRequest = UnityWebRequest.Post($"https://osucapstone.herokuapp.com/games/{gameID}", inputForm);
