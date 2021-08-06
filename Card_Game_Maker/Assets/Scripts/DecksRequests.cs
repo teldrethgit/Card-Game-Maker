@@ -37,7 +37,7 @@ public class DecksRequests : MonoBehaviour
 
     IEnumerator GetDecks()
     {
-        UnityWebRequest webRequest = UnityWebRequest.Get("https://osucapstone.herokuapp.com/decks");
+        UnityWebRequest webRequest = UnityWebRequest.Get("https://osucapstone.herokuapp.com/decks?game=" + CurrentGame.GetInstance().id);
         yield return webRequest.SendWebRequest();
 
         if (webRequest.responseCode == 200)
@@ -86,6 +86,7 @@ public class DecksRequests : MonoBehaviour
         List<IMultipartFormSection> inputForm = new List<IMultipartFormSection>();
         inputForm.Add(new MultipartFormDataSection("name", Name));
         inputForm.Add(new MultipartFormDataSection("description", Description));
+        inputForm.Add(new MultipartFormDataSection("game", CurrentGame.GetInstance().id.ToString()));
         
         UnityWebRequest webRequest = UnityWebRequest.Post("https://osucapstone.herokuapp.com/decks", inputForm);
         yield return webRequest.SendWebRequest();
