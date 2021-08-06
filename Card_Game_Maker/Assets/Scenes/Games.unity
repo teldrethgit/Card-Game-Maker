@@ -1727,7 +1727,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 433881596}
         m_TargetAssemblyTypeName: GameRequests, GameAssembly
-        m_MethodName: SendPost
+        m_MethodName: CreateGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2413,11 +2413,11 @@ GameObject:
   - component: {fileID: 433881592}
   - component: {fileID: 433881593}
   - component: {fileID: 433881594}
-  - component: {fileID: 433881596}
   - component: {fileID: 433881595}
   - component: {fileID: 433881597}
   - component: {fileID: 433881598}
   - component: {fileID: 433881599}
+  - component: {fileID: 433881596}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: changegamescene
@@ -2520,10 +2520,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce64b8f96a8c2547bf6955addc667f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardFailText: {fileID: 0}
-  cardSuccessText: {fileID: 0}
-  EditCardsMenu: {fileID: 0}
-  ChoosingDeckCardsMenu: {fileID: 0}
+  DeckStartLoc: {fileID: 0}
+  DeckFieldOfView: {fileID: 0}
+  DeckPrefab: {fileID: 0}
+  NameInput: {fileID: 0}
+  DescriptionInput: {fileID: 0}
+  CreateButton: {fileID: 0}
+  CreateFailText: {fileID: 0}
+  Index: {fileID: 0}
+  EditMenu: {fileID: 0}
+  DeckMenu: {fileID: 0}
+  EditFailText: {fileID: 0}
+  EditButton: {fileID: 0}
+  EditName: {fileID: 0}
+  EditDescription: {fileID: 0}
+  Title: {fileID: 0}
+  DisplayName: {fileID: 0}
+  DisplayDescription: {fileID: 0}
 --- !u!114 &433881595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2552,6 +2565,12 @@ MonoBehaviour:
   GameCreateSuccess: {fileID: 1362944074}
   ChooseGameMenu: {fileID: 1698030485}
   CreateGameMenu: {fileID: 627287312}
+  GameID: {fileID: 1159911339}
+  EditGameMenu: {fileID: 678129}
+  EditGameRulesMenu: {fileID: 435280884}
+  GamePrefab: {fileID: 6871695683329522714, guid: 642382b1912338740aabccaebe827b36, type: 3}
+  PlacementTile: {fileID: 0}
+  Scroller: {fileID: 157600165}
 --- !u!114 &433881597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4886,7 +4905,6 @@ GameObject:
   - component: {fileID: 801160372}
   - component: {fileID: 801160371}
   - component: {fileID: 801160370}
-  - component: {fileID: 801160369}
   m_Layer: 5
   m_Name: UpdateConfirm
   m_TagString: Untagged
@@ -4914,21 +4932,6 @@ RectTransform:
   m_AnchoredPosition: {x: -14.8367, y: -394.2886}
   m_SizeDelta: {x: 328.4205, y: 142.174}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &801160369
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 801160367}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a588629d391162478a44ae4bdd4b181, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GameID: {fileID: 1159911339}
-  EditGameMenu: {fileID: 678129}
-  EditGameRulesMenu: {fileID: 435280884}
 --- !u!114 &801160370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4973,21 +4976,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 433881598}
-        m_TargetAssemblyTypeName: GameUpdate, GameAssembly
-        m_MethodName: SendPost
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 433881599}
-        m_TargetAssemblyTypeName: GameGetRequest, GameAssembly
-        m_MethodName: Start
+      - m_Target: {fileID: 433881596}
+        m_TargetAssemblyTypeName: GameRequests, GameAssembly
+        m_MethodName: SendUpdate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6471,7 +6462,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1138584569}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 433881596}
+        m_TargetAssemblyTypeName: GameRequests, GameAssembly
+        m_MethodName: DeleteGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1138584569
 MonoBehaviour:
   m_ObjectHideFlags: 0

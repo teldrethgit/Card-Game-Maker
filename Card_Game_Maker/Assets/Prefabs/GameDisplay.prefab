@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 8890243275629198098}
   - component: {fileID: 2170840338761796144}
   m_Layer: 5
-  m_Name: TotalTurns
+  m_Name: StartingHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1115,7 +1115,7 @@ GameObject:
   - component: {fileID: 3572815569082213391}
   - component: {fileID: 5359525121205012258}
   m_Layer: 5
-  m_Name: GameTimeLimit
+  m_Name: GameTotalHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1192,7 +1192,7 @@ GameObject:
   - component: {fileID: 2786972342952333839}
   - component: {fileID: 7297697436857032366}
   m_Layer: 5
-  m_Name: TimeLimit
+  m_Name: TotalHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1348,8 +1348,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -74.938995, y: -5.4233}
-  m_SizeDelta: {x: 91.522, y: 39.154}
+  m_AnchoredPosition: {x: -114, y: -5}
+  m_SizeDelta: {x: 142.5378, y: 36.6032}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8493016964536150651
 CanvasRenderer:
@@ -1379,7 +1379,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Time Limit:'
+  m_text: Total Hand Size
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1442,7 +1442,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -26.77106, w: 0}
+  m_margin: {x: 0, y: -1.2754078, z: -26.77106, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1482,7 +1482,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -63.02831, y: -5.4235}
+  m_AnchoredPosition: {x: -126, y: -6}
   m_SizeDelta: {x: 114.8654, y: 39.154}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8695277267290499743
@@ -1691,8 +1691,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -74.938995, y: -5.4233003}
-  m_SizeDelta: {x: 91.522, y: 39.154}
+  m_AnchoredPosition: {x: -105.54847, y: -4.7856026}
+  m_SizeDelta: {x: 152.741, y: 40.4294}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &555925293078075421
 CanvasRenderer:
@@ -1722,7 +1722,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Total Turns:'
+  m_text: Starting Hand Size
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2043,7 +2043,7 @@ GameObject:
   - component: {fileID: 9200680803577634763}
   - component: {fileID: 6722899808158702048}
   m_Layer: 5
-  m_Name: GameTotalTurns
+  m_Name: GameStartingHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

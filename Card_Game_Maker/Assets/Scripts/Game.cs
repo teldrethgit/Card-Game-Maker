@@ -5,9 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class Game
 {
-    public int time_limit;
+    public int starting_hand;
     public int health_pool;
-    public int total_turns;
+    public int total_hand;
     public string description;
     public int id;
     public string name;
