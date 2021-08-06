@@ -4,19 +4,19 @@ using UnityEngine;
 
 //Reference: https://forum.unity.com/threads/game-initialization-script.721127/
 
-public class GlobalManager{
+public class CurrentGame{
  
-    private static GlobalManager instance;
+    private static CurrentGame instance;
  
-    public int userId;
+    public int id;
  
-    private GlobalManager(){
-        userId = 0;
+    private CurrentGame(){
+        id = 35;
     }
  
-    public static GlobalManager GetInstance(){
+    public static CurrentGame GetInstance(){
         if(instance == null){
-            instance = new GlobalManager();
+            instance = new CurrentGame();
         }
         return instance;
     }

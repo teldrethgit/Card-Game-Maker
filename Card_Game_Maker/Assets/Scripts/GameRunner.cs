@@ -39,7 +39,7 @@ public class GameRunner : MonoBehaviour
     private GameObject originalParent;
     private bool messageDisplayed = false, attacking = false, dragging = false;
     private string currentTurn;
-    private int enemyHandCount, playerHandCount, playerDeckRemaining, enemyDeckRemaining, playerDeckLocation = 0, enemyDeckLocation = 0, playerHealth = 30, playerMana = 1, enemyHealth = 30, round = 1, enemyMana = 1;
+    private int playerHandCount, playerDeckRemaining, enemyDeckRemaining, playerDeckLocation = 0, enemyDeckLocation = 0, playerHealth = 30, playerMana = 1, enemyHealth = 30, round = 1, enemyMana = 1;
     private List<Card> enemyHand;
 
     private Color COLOR_RED = new Color(1f, 0.086f, 0.028f, 0.2823f);
@@ -141,7 +141,7 @@ public class GameRunner : MonoBehaviour
 
     IEnumerator RequestDeck(int player)
     {
-        UnityWebRequest webRequest = UnityWebRequest.Get("https://osucapstone.herokuapp.com/decks/1");
+        UnityWebRequest webRequest = UnityWebRequest.Get("https://osucapstone.herokuapp.com/decks/1/cards");
         yield return webRequest.SendWebRequest();
        
         if (webRequest.responseCode == 200)
@@ -239,7 +239,6 @@ public class GameRunner : MonoBehaviour
             enemyHand.Add(ECards[i]);
             enemyDeckLocation++;
         }
-        enemyHandCount = 5;
         playerHandCount = 5;
         playerDeckLocation = 5;
         currentTurn = "StartPlayerTurn";
