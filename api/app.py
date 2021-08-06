@@ -26,11 +26,11 @@ def JSONcard(card):
         {
             "id": card.id, 
             "name": card.name, 
+            "health": card.health, 
             "attack": card.attack, 
             "cost": card.cost, 
-            "description": card.description, 
             "image": card.image, 
-            "deck": card.deck
+            "game": card.game
         })
 
 def JSONgame(game):
@@ -40,8 +40,8 @@ def JSONgame(game):
             "name": game.name,
             "description": game.description,
             "health_pool": game.health_pool,
-            "total_turns": game.total_turns,
-            "time_limit": game.time_limit,
+            "total_hand": game.total_turns,
+            "starting_hand": game.time_limit,
             "user_id": game.user_id
         })
 
@@ -61,7 +61,7 @@ class Cards(db.Model):
     attack = db.Column(db.Integer, unique=False, nullable=False)
     cost = db.Column(db.Integer, unique=False, nullable=False)
     image = db.Column(db.LargeBinary, unique=False, nullable=True)
-    deck = db.Column(db.Integer,db.ForeignKey('decks.id'),  nullable=True)
+    game = db.Column(db.Integer,db.ForeignKey('games.id'),  nullable=True)
 
 
 class Decks(db.Model):
@@ -69,6 +69,7 @@ class Decks(db.Model):
     name = db.Column(db.String(80), unique=False, nullable=False)
     description = db.Column(db.Text, unique=False, nullable=True)
     user = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
+    game = db.Column(db.Integer, db.ForeignKey('games.id'), nullable=True)
 
 
 class Users(UserMixin, db.Model):
@@ -85,6 +86,11 @@ class Games(db.Model):
     health_pool = db.Column(db.Integer, unique=False, nullable=False)
     starting_hand = db.Column(db.Integer, unique=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+
+class CardsDecks(db.Model):
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    card = db.Column(db.Integer, db.ForeignKey('cards.id'), nullable=True)
+    deck = db.Column(db.Integer, db.ForeignKey('decks.id'), nullable=True)
 
 
 @app.route('/')
@@ -176,14 +182,15 @@ def games_put_delete(id):
 @app.route('/decks', methods=['GET','POST'])
 def decks_get_post():
     if request.method == 'GET':
-        data = Decks.query.filter_by(user = current_user.id)
+        data = Decks.query.filter_by(user = current_user.id,game=request.args.get('game'))
         return jsonify([JSONdeck(deck) for deck in data])
 
     elif request.method == 'POST':
         name = request.form['name']
         description = request.form['description']
+        game = request.form['game']
         user = current_user.id
-        deck_contents = Decks(name=name, description=description, user=user)
+        deck_contents = Decks(name=name, description=description, game=game, user=user)
         db.session.add(deck_contents)
         db.session.commit()
         return ('', 204)
@@ -193,8 +200,25 @@ def decks_get_post():
 
 @app.route('/decks/<int:id>/cards', methods=['GET'])
 def deck_get_cards(id):
-    data = Cards.query.filter_by(deck = id)
+    result = []
+    card_ids = []
+    card_decks = CardsDecks.query.filter_by(deck=id)
+    for cd in card_decks:
+        card_ids.append(cd.card)
+    data = Cards.query.filter(Cards.id.in_(card_ids)).all()
     return jsonify([JSONcard(card) for card in data])
+
+@app.route('/decks/<int:deck_id>/cards/<int:card_id>', methods=['POST', 'DELETE'])
+def add_to_deck(deck_id, card_id):
+    if request.method == 'POST':
+        db.session.add(CardsDecks(card=card_id,deck=deck_id))
+        db.session.commit()
+        return ('', 204)
+    if request.method == 'DELETE':
+        card_deck = CardsDecks.query.filter_by(card=card_id,deck=deck_id).first()
+        db.session.delete(card_deck)
+        db.session.commit()
+        return ('', 204)
       
 @app.route('/decks/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 def deck_get_put_delete(id):
@@ -261,6 +285,12 @@ def cards_put_delete(id):
         db.session.delete(card_to_delete)
         db.session.commit()
         return ('', 204)
+
+@app.route('/cards/games/<int:id>', methods=['GET', 'POST'])
+def get_game_cards(id):
+    if request.method == 'GET':
+        data = Cards.query.filter_by(game=id).all()
+        return jsonify([JSONcard(card) for card in data])
 
 if __name__ == "__main__":
     db.create_all()
