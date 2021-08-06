@@ -13,7 +13,7 @@ public class GameGetRequest : MonoBehaviour
     public GameObject Scroller;
     
     
-    void Start()
+    public void Start()
     {
         StartCoroutine(getGames());
     }
@@ -27,7 +27,7 @@ public class GameGetRequest : MonoBehaviour
     
     IEnumerator getGames()
     {
-        UnityWebRequest webRequest = UnityWebRequest.Get("https://osucapstone.herokuapp.com/games");
+        UnityWebRequest webRequest = UnityWebRequest.Get("http://127.0.0.1:8000/games");
         yield return webRequest.SendWebRequest();
 
         if (webRequest.responseCode == 200)
@@ -37,7 +37,7 @@ public class GameGetRequest : MonoBehaviour
             int index = 0;
 
             foreach (Game game in games)
-            {   print(game.name);
+            { 
                 game.game = Instantiate(GamePrefab,new Vector3(-1000+index,-150,0), Quaternion.identity);
                 UpdateGameUI.Update(game);
                 game.game.transform.SetParent(Scroller.transform, false);

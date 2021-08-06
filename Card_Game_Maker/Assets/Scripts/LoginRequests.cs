@@ -31,7 +31,7 @@ public class LoginRequests : MonoBehaviour
         inputForm.Add(new MultipartFormDataSection("name", UserName));
         inputForm.Add(new MultipartFormDataSection("password", Password));
         
-        UnityWebRequest webRequest = UnityWebRequest.Post("https://osucapstone.herokuapp.com/login", inputForm);
+        UnityWebRequest webRequest = UnityWebRequest.Post("http://127.0.0.1:8000/login", inputForm);
         yield return webRequest.SendWebRequest();
        
         if (webRequest.responseCode == 200)
