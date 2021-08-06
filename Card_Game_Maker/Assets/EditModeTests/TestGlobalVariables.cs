@@ -6,10 +6,4 @@ using UnityEngine.TestTools;
 
 public class TestGlobalVariables
 {
-    [Test]
-    public void GlobalVariablesAreCreated()
-    {
-        Assert.True(GlobalManager.GetInstance() is GlobalManager);
-        Assert.AreEqual(0, GlobalManager.GetInstance().userId);
-    }
 }
