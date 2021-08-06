@@ -270,7 +270,7 @@ def cards_get_post():
         attack = request.form['attack']
         cost = request.form['cost']
         image = request.form['image']
-        card_contents = Cards(name=name, health=health, attack=attack, cost=cost, deck=deck)
+        card_contents = Cards(name=name, health=health, attack=attack, cost=cost, image=image)
         db.session.add(card_contents)
         db.session.commit()
         return ('', 204)
