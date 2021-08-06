@@ -105,24 +105,44 @@ public class DecksRequests : MonoBehaviour
 
     public void UpdateDeck()
     {
-        StartCoroutine(Update());
+        StartCoroutine(SendUpdate());
     }
 
-    IEnumerator Update()
+    IEnumerator SendUpdate()
     {
         string Name = EditName.text;
         string Description = EditDescription.text;
         if(Name == "") {yield break;}
 
-        string body = "?id=" + editing.id + "&name=" + Name + "&description=" + Description;
-        List<IMultipartFormSection> inputForm = new List<IMultipartFormSection>();
-        inputForm.Add(new MultipartFormDataSection("name", Name));
-        inputForm.Add(new MultipartFormDataSection("description", Description));
+        string body = "?name=" + Name + "&description=" + Description;
         
         UnityWebRequest webRequest = UnityWebRequest.Put("https://osucapstone.herokuapp.com/decks/" + editing.id + body, "dummy");
         yield return webRequest.SendWebRequest();
        
-        if (webRequest.responseCode == 200)
+        if (webRequest.responseCode == 204)
+        {
+		    Debug.Log("Saved");
+            SceneManager.LoadScene("Decks");
+        }
+        else 
+        {
+		    Debug.Log("Request Failed");
+            EditFailText.SetActive(true);
+            EditButton.GetComponent<Button>().interactable = true;
+        }
+    }
+
+    public void DeleteDeck()
+    {
+        StartCoroutine(SendDelete());
+    }
+
+    IEnumerator SendDelete()
+    {
+        UnityWebRequest webRequest = UnityWebRequest.Delete("https://osucapstone.herokuapp.com/decks/" + editing.id);
+        yield return webRequest.SendWebRequest();
+       
+        if (webRequest.responseCode == 204)
         {
 		    Debug.Log("Saved");
             SceneManager.LoadScene("Decks");
