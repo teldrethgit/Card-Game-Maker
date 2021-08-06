@@ -49,6 +49,7 @@ def JSONgame(game):
             "health_pool": game.health_pool,
             "total_hand": game.total_hand,
             "starting_hand": game.starting_hand,
+            "published": game.published,
             "user_id": game.user_id
         })
 
@@ -93,6 +94,7 @@ class Games(db.Model):
     total_hand = db.Column(db.Integer, unique=True, nullable=False)
     health_pool = db.Column(db.Integer, unique=False, nullable=False)
     starting_hand = db.Column(db.Integer, unique=True, nullable=False)
+    published = db.Column(db.Boolean, unique=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
 class CardsDecks(db.Model):
@@ -148,10 +150,17 @@ def logout():
 def test():
     return jsonify(session.get('id'))
 
+@app.route('/games/user', methods=['GET', 'POST'])
+def games_get_user():
+    if request.method == 'GET':
+        user_id = session.get('id')
+        data = Games.query.filter_by(user_id=user_id)
+        return jsonify([JSONgame(game) for game in data])
+
 @app.route('/games', methods=['GET','POST'])
 def games_get_post():
     if request.method == 'GET':
-        data = Games.query.all()
+        data = Games.query.filter_by(published=True)
         return jsonify([JSONgame(game) for game in data])
     
     elif request.method == 'POST':
@@ -162,10 +171,15 @@ def games_get_post():
         total_hand = request.form['total_hand']
         user_id = session.get('id')
         game_names = Games.query.filter_by(name=name).first()
+        published = request.form['published']
+        if published == "true":
+            published = True
+        else:
+            published = False
         if game_names:
             return ('', 401)
         game_contents = Games(name=name, description=description, starting_hand=starting_hand, health_pool=health_pool,
-                            total_hand=total_hand, user_id=user_id)
+                            total_hand=total_hand, user_id=user_id, published=published)
         db.session.add(game_contents)
         db.session.commit()
         return ('', 204)
@@ -184,9 +198,14 @@ def games_put_delete(id):
             health_pool = request.form['health_pool']
             starting_hand = request.form['starting_hand']
             user_id = session.get('id')
+            published = request.form['published']
+            if published == "true":
+                published = True
+            else:
+                published = False
             game_contents = Games(name=name, description=description, starting_hand=starting_hand,
                                   health_pool=health_pool,
-                                  total_hand=total_hand, user_id=user_id)
+                                  total_hand=total_hand, user_id=user_id, published=published)
             db.session.add(game_contents)
             db.session.commit()
             return (' ', 204)
