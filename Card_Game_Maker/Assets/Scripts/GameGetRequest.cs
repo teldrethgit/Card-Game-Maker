@@ -42,13 +42,8 @@ public class GameGetRequest : MonoBehaviour
             Game[] games = JsonHelper.FromJson<Game>(fixJson(webRequest.downloadHandler.text));
             int index = 0;
             foreach (Game game in games)
-<<<<<<< Updated upstream
-            {
-                game.game = Instantiate(GamePrefab, tempGames.GetComponent<Transform>());
-=======
             {   
                 game.game = Instantiate(GamePrefab,new Vector3(-1000+index,-150,0), Quaternion.identity);
->>>>>>> Stashed changes
                 UpdateGameUI.Update(game);
 
                 switch (index)
