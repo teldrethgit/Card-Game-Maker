@@ -19,7 +19,7 @@ public class GameGetRequest : MonoBehaviour
     public GameObject tempGames;
  
     
-    void Start()
+    public void Start()
     {
         StartCoroutine(getGames());
     }
@@ -38,12 +38,17 @@ public class GameGetRequest : MonoBehaviour
 
         if (webRequest.responseCode == 200)
         {
-            Debug.Log(webRequest.responseCode);
+           
             Game[] games = JsonHelper.FromJson<Game>(fixJson(webRequest.downloadHandler.text));
             int index = 0;
             foreach (Game game in games)
+<<<<<<< Updated upstream
             {
                 game.game = Instantiate(GamePrefab, tempGames.GetComponent<Transform>());
+=======
+            {   
+                game.game = Instantiate(GamePrefab,new Vector3(-1000+index,-150,0), Quaternion.identity);
+>>>>>>> Stashed changes
                 UpdateGameUI.Update(game);
 
                 switch (index)

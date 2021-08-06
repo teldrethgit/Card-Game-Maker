@@ -26,17 +26,17 @@ public class GameRequests : MonoBehaviour
 
         string GameName = GameObject.Find("GameNameInputSU").GetComponent<TMP_InputField>().text;
         string PlayerHealth = GameObject.Find("PlayerHealthInputSU").GetComponent<TMP_InputField>().text;
-        string TimeLimit = GameObject.Find("TimeLimitInputSU").GetComponent<TMP_InputField>().text;
-        string TotalTurn = GameObject.Find("TotalTurnInputSU").GetComponent<TMP_InputField>().text;
+        string TotalHand = GameObject.Find("TotalHandSizeInputSU").GetComponent<TMP_InputField>().text;
+        string StartingHand = GameObject.Find("StartingHandSizeInputSU").GetComponent<TMP_InputField>().text;
         string Description = GameObject.Find("DescriptionInputSU").GetComponent<TMP_InputField>().text;
 
-        if (GameName == "" || PlayerHealth == null || TimeLimit == null || TotalTurn == null || Description == "") { yield break; }
+        if (GameName == "" || PlayerHealth == null || TotalHand == null || StartingHand == null || Description == "") { yield break; }
 
         List<IMultipartFormSection> inputForm = new List<IMultipartFormSection>();
         inputForm.Add(new MultipartFormDataSection("name", GameName));
         inputForm.Add(new MultipartFormDataSection("health_pool", PlayerHealth));
-        inputForm.Add(new MultipartFormDataSection("time_limit", TimeLimit));
-        inputForm.Add(new MultipartFormDataSection("total_turns", TotalTurn));
+        inputForm.Add(new MultipartFormDataSection("total_hand", TotalHand));
+        inputForm.Add(new MultipartFormDataSection("starting_hand", StartingHand));
         inputForm.Add(new MultipartFormDataSection("description", Description));
 
 
