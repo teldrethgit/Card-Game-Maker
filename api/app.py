@@ -294,7 +294,7 @@ def cards_get_post():
         health = request.form['health']
         attack = request.form['attack']
         cost = request.form['cost']
-        image = request.form['image']
+        image = bytearray(request.form['image'], 'utf8')
         card_contents = Cards(name=name, health=health, attack=attack, cost=cost, image=image)
         db.session.add(card_contents)
         db.session.commit()
