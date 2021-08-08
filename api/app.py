@@ -36,7 +36,7 @@ def JSONcard(card):
             "health": card.health, 
             "attack": card.attack, 
             "cost": card.cost, 
-            "image": str(card.image), 
+            "image": card.image.decode(), 
             "game": card.game
         })
 
