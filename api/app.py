@@ -29,7 +29,6 @@ db = SQLAlchemy(app)
 
 
 def JSONcard(card):
-    print(type(card.image))
     return (
         {
             "id": card.id, 
