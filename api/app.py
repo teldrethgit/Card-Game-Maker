@@ -36,7 +36,7 @@ def JSONcard(card):
             "health": card.health, 
             "attack": card.attack, 
             "cost": card.cost, 
-            # "image": card.image, 
+            "image": card.image, 
             "game": card.game
         })
 
@@ -68,7 +68,7 @@ class Cards(db.Model):
     health = db.Column(db.Integer, unique=False, nullable=False)
     attack = db.Column(db.Integer, unique=False, nullable=False)
     cost = db.Column(db.Integer, unique=False, nullable=False)
-    image = db.Column(db.LargeBinary, unique=False, nullable=True)
+    image = db.Column(db.Text, unique=False, nullable=True)
     game = db.Column(db.Integer,db.ForeignKey('games.id'),  nullable=True)
 
 
