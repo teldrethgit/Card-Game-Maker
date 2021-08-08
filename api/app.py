@@ -312,7 +312,7 @@ def cards_put_delete(id):
             health = request.form['health']
             attack = request.form['attack']
             cost = request.form['cost']
-            image = request.form['image']
+            image = bytearray(request.form['image'], 'utf8')
             deck = request.form['deck']
             db.session.commit()
             return ('', 204)
