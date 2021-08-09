@@ -9,7 +9,7 @@ public class Card
     public int cost;
     public int game;
     public int id;
-    public object image;
+    public string image;
     public string name;
     public int health = 5;
     public GameObject card;
