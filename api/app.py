@@ -1,3 +1,4 @@
+from coolname import generate_slug    
 from flask import Flask, render_template, request, redirect, session, jsonify
 from flask_cors import CORS
 import redis
@@ -5,6 +6,7 @@ from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
 #from flask_login import LoginManager, UserMixin, login_user, current_user, logout_user, login_required
 import os
+import random  
 
 # Database Configs
 app = Flask(__name__, static_url_path="/",static_folder="./", template_folder="./")
@@ -345,6 +347,37 @@ def get_game_cards(id):
     if request.method == 'GET':
         data = Cards.query.filter_by(game=id).all()
         return jsonify([JSONcard(card) for card in data])
+    
+    
+# Creates a randomized deck of cards with unique attributes                                              
+@app.route('/randomdeck', methods=['POST'])                                                              
+def randomize():                                                                                         
+    if request.method == 'POST':                                                                         
+        name = "Random Deck " + random.randint(0, 100)                                                   
+        description = "Randomly created deck"                                                            
+        user_id = session.get('id')                                                                      
+        deck_contents = Decks(name=name, description=description, user=user_id)                          
+        db.session.add(deck_contents)                                                                    
+        db.session.commit()                                                                              
+                                                                                                         
+        deck_id = deck_contents                                                                          
+        for i in range(40):                                                                              
+            name = generate_slug(2)                                                                      
+            health = random.randint(10, 40)                                                              
+            attack = random.randint(1, 10)                                                               
+            cost = cost = random.randint(1, 6)                                                           
+            image = None                                                                                 
+            card_contents = Cards(name=name, health=health, attack=attack, cost=cost, image=image)       
+            db.session.add(card_contents)                                                                
+            db.session.commit()                                                                          
+            card_deck = CardsDecks(card=card_contents, deck=deck_id)                                     
+            db.session.add(card_deck)                                                                    
+            db.session.commit()                                                                          
+        return ('', 204)                                                                                 
+    else:                                                                                                
+        return ('', 400)                                                                                 
+                                                                                                         
+                                                                                                              
 
 if __name__ == "__main__":
     db.create_all()
