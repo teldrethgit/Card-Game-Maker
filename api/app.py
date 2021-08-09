@@ -330,12 +330,12 @@ def cards_put_delete(id):
     if request.method == 'PUT':
         card = Cards.query.get_or_404(id)
         try:
-            name = request.form['name']
-            health = request.form['health']
-            attack = request.form['attack']
-            cost = request.form['cost']
-            image = bytearray(request.form['image'], 'utf8')
-            deck = request.form['deck']
+            name = request.args.get('name')
+            health = request.args.get('health')
+            attack = request.args.get('attack')
+            cost = request.args.get('cost')
+            image = bytearray(request.args.get('image'), 'utf8')
+            # deck = request.form'deck')
             db.session.commit()
             return ('', 204)
         except:
