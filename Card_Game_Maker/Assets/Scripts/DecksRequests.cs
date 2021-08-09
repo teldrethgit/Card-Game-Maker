@@ -50,16 +50,24 @@ public class DecksRequests : MonoBehaviour
             Vector3 viewPos = DeckFieldOfView.sizeDelta;
             GameObject currentDeck;
             decks = JsonHelper.FromJson<Deck>(fixJson(webRequest.downloadHandler.text));
-            int i = 0;
+            Deck random = new Deck();
+            random.name = "Create Random Deck";
+            random.description = "A random deck will be created for you with 30 cards whose values are generally balanced so that health + attack = cost";
+            currentDeck = Instantiate(DeckPrefab, new Vector3(pos.x, pos.y, pos.z), Quaternion.identity, DeckStartLoc);
+            UpdateDeckUI(currentDeck, random);
+            Button button = currentDeck.transform.Find("Canvas").Find("Button").GetComponent<Button>();
+            button.onClick.AddListener(() => SetRandom());
+
+            int i = 1;
             foreach (Deck d in decks)
             {
                 currentDeck = Instantiate(DeckPrefab, new Vector3(pos.x + (i * 750), pos.y, pos.z), Quaternion.identity, DeckStartLoc);
                 UpdateDeckUI(currentDeck, d);
-                Button button = currentDeck.transform.Find("Canvas").Find("Button").GetComponent<Button>();
+                button = currentDeck.transform.Find("Canvas").Find("Button").GetComponent<Button>();
                 button.onClick.AddListener(() => SetEditing(d.id));
                 i++;
             }
-            viewPos.x = 1920 + (750 * (decks.Length - 2));
+            viewPos.x = 1920 + (750 * (Math.Max(0, decks.Length - 1)));
             DeckFieldOfView.sizeDelta = viewPos;
             DeckFieldOfView.position = new Vector3(viewPos.x, DeckFieldOfView.position.y, DeckFieldOfView.position.z);
         }
@@ -177,6 +185,12 @@ public class DecksRequests : MonoBehaviour
                 break;
             }
         }
+    }
+
+    private void SetRandom()
+    {
+        CurrentGame.GetInstance().deck = -1;
+        SceneManager.LoadScene("Play");
     }
 
     public void ResetScene()

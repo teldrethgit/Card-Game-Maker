@@ -356,10 +356,15 @@ def get_game_cards(id):
 def randomize():
     results = []                                                                                         
     for i in range(30):                                                                              
-        name = generate_slug(2)                                                                      
-        health = random.randint(1, 10)                                                              
-        attack = random.randint(1, 10)                                                               
-        cost = cost = random.randint(1, 10)                                                           
+        name = generate_slug(2)   
+        cost = random.randint(1, 10)                                                           
+        weight = random.randint(1,2)
+        if (weight == 1): 
+            attack = random.randint(1,cost)
+            health = cost - attack + 1
+        else: 
+            health = random.randint(1,cost)
+            attack = cost - health + 1
         image = None                                                                                 
         results.append(Cards(name=name, health=health, attack=attack, cost=cost, image=image))       
     return jsonify([JSONcard(c) for c in results])                                                                                 

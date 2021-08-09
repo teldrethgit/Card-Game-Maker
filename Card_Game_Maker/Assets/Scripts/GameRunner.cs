@@ -24,12 +24,14 @@ public class GameRunner : MonoBehaviour
     public GameObject PlayerDeckInfo;
     public GameObject EnemyDeckInfo;
     public GameObject PlayerHealthOverlay;
+    public GameObject ErrorScreen;
     public GameObject[] CardSlotGhosts;
     public Transform[] PlayerFieldSlots;
     public Transform[] PlayerHandSlots;
     public Transform[] EnemyHandSlots;
     public Transform[] EnemyFieldSlots;
     public Transform TempCards;
+    public TMP_Text ErrorText;
     
     private Card[] PCards; 
     private Card[] ECards; 
@@ -45,9 +47,9 @@ public class GameRunner : MonoBehaviour
     private Color COLOR_RED = new Color(1f, 0.086f, 0.028f, 0.2823f);
     private Color COLOR_GREEN = new Color(0.023f, 1f, 0.0203f, 0.2823f);
     private Color COLOR_OFF = new Color(0f, 0f, 0f, 0f);
-    private int STARTING_HAND_SIZE = 3; 
-    private int MAX_HAND_SIZE = 4; 
-    private int STARTING_HEALTH = 20; 
+    private int STARTING_HAND_SIZE = 5; 
+    private int MAX_HAND_SIZE = 5; 
+    private int STARTING_HEALTH = 30; 
 
     List<RaycastResult> hitObjects = new List<RaycastResult>();
 
@@ -129,6 +131,29 @@ public class GameRunner : MonoBehaviour
         yield return Enemy;
         yield return Game;
         
+        string errors = "";
+        if (STARTING_HAND_SIZE > MAX_HAND_SIZE)
+        {
+            errors += "- Starting hand size cannot be larger than total hand size\n";
+        }
+        if (STARTING_HAND_SIZE > 5 || MAX_HAND_SIZE > 5)
+        {
+            errors += "- Starting/Total Hand Size cannot be larger than 5\n";
+        }
+        if (PCards.Length < 15)
+        {
+            errors += "- Decks must contain at least 15 cards, please add more cards\n";
+        }
+        if (STARTING_HEALTH <= 0)
+        {
+            errors += "- Starting Health cannot be negative or 0";
+        }
+
+        if(errors != "")
+        {
+            ErrorScreen.SetActive(true);
+            ErrorText.text = errors;
+        } 
         LoadScreen.SetActive(false); 
     }
 
@@ -146,7 +171,16 @@ public class GameRunner : MonoBehaviour
 
     IEnumerator RequestDeck(int player)
     {
-        UnityWebRequest webRequest = UnityWebRequest.Get("https://osucapstone.herokuapp.com/decks/1/cards");
+        int deckId = CurrentGame.GetInstance().deck;
+        string requestString;
+        if (player == 1 || deckId == -1)
+        {
+            requestString = "https://osucapstone.herokuapp.com/randomdeck";
+        } else 
+        {
+            requestString = "https://osucapstone.herokuapp.com/decks/" + deckId + "/cards";
+        }
+        UnityWebRequest webRequest = UnityWebRequest.Get(requestString);
         yield return webRequest.SendWebRequest();
        
         if (webRequest.responseCode == 200)
@@ -226,18 +260,6 @@ public class GameRunner : MonoBehaviour
         }
     }
 
-    public void SetCard(int id, Transform pos)
-    {
-        foreach(Card card in PCards) 
-        {
-            if (card.id == id)
-            {
-                card.card.transform.SetParent(pos, false);
-                break;
-            }
-        }
-    }
-
     public void EndTurn()
     {
         currentTurn = "EndPlayerTurn";
@@ -248,7 +270,7 @@ public class GameRunner : MonoBehaviour
         int index = 0;
         foreach (Card c in PCards)
         {
-            SetCard(c.id, PlayerHandSlots[index]);
+            c.card.transform.SetParent(PlayerHandSlots[index],false);
             index++;
             if (index > STARTING_HAND_SIZE - 1) {break;}
         }
