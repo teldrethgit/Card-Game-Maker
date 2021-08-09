@@ -9,9 +9,11 @@ public class CurrentGame{
     private static CurrentGame instance;
    
     public int id;
+    public int deck;
  
     private CurrentGame(){
         id = 35;
+        deck = -1;
     }
  
     public static CurrentGame GetInstance(){

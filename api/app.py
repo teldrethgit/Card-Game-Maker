@@ -187,8 +187,10 @@ def games_get_post():
         return ('', 204)
         
     
-@app.route('/games/<int:id>', methods=['POST', 'DELETE'])
+@app.route('/games/<int:id>', methods=['GET', 'POST', 'DELETE'])
 def games_put_delete(id):
+    if request.method == 'GET':
+        return jsonify(JSONgame(Games.query.get_or_404(id)))
     if request.method == 'POST':
         game_id = Games.query.filter_by(id=id).first()
         if game_id:
@@ -350,32 +352,17 @@ def get_game_cards(id):
     
     
 # Creates a randomized deck of cards with unique attributes                                              
-@app.route('/randomdeck', methods=['POST'])                                                              
-def randomize():                                                                                         
-    if request.method == 'POST':                                                                         
-        name = "Random Deck " + str(random.randint(0, 100))                                                   
-        description = "Randomly created deck"                                                            
-        user_id = session.get('id')                                                                      
-        deck_contents = Decks(name=name, description=description, user=user_id)                          
-        db.session.add(deck_contents)                                                                    
-        db.session.commit()                                                                              
-                                                                                                         
-        deck_id = deck_contents.id                                                                          
-        for i in range(40):                                                                              
-            name = generate_slug(2)                                                                      
-            health = random.randint(10, 40)                                                              
-            attack = random.randint(1, 10)                                                               
-            cost = cost = random.randint(1, 6)                                                           
-            image = None                                                                                 
-            card_contents = Cards(name=name, health=health, attack=attack, cost=cost, image=image)       
-            db.session.add(card_contents)                                                                
-            db.session.commit()                                                                          
-            card_deck = CardsDecks(card=card_contents.id, deck=deck_id)                                     
-            db.session.add(card_deck)                                                                    
-            db.session.commit()                                                                          
-        return ('', 204)                                                                                 
-    else:                                                                                                
-        return ('', 400)                                                                                 
+@app.route('/randomdeck', methods=['GET'])                                                              
+def randomize():
+    results = []                                                                                         
+    for i in range(30):                                                                              
+        name = generate_slug(2)                                                                      
+        health = random.randint(1, 10)                                                              
+        attack = random.randint(1, 10)                                                               
+        cost = cost = random.randint(1, 10)                                                           
+        image = None                                                                                 
+        results.append(Cards(name=name, health=health, attack=attack, cost=cost, image=image))       
+    return jsonify([JSONcard(c) for c in results])                                                                                 
                                                                                                          
                                                                                                               
 

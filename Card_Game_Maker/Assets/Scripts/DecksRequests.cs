@@ -173,6 +173,7 @@ public class DecksRequests : MonoBehaviour
                 Title.text = "";
                 DisplayName.text = d.name;
                 DisplayDescription.text = d.description;
+                CurrentGame.GetInstance().deck = d.id;
                 break;
             }
         }
@@ -188,29 +189,6 @@ public class DecksRequests : MonoBehaviour
         deck.transform.Find("Canvas").Find("DeckDescription").Find("DescriptionText").GetComponent<TMP_Text>().text = d.description;
         deck.transform.Find("Canvas").Find("Name").Find("NameText").GetComponent<TMP_Text>().text = d.name;
     }
-
-public void RandomDeck()
-    {
-        StartCoroutine(CreateRandom());
-    }
-
-    IEnumerator CreateRandom()
-    {
-        
-        UnityWebRequest webRequest = UnityWebRequest.Post("https://osucapstone.herokuapp.com/randomdeck?game="+ GameID," ");
-        yield return webRequest.SendWebRequest();
-       
-        if (webRequest.responseCode == 204)
-        {
-            SceneManager.LoadScene("Decks");
-        }
-        else 
-        {
-		    Debug.Log("Request Failed");
-            CreateFailText.SetActive(true);
-            CreateButton.GetComponent<Button>().interactable = true;
-        }
-
-}}
+}
 
 

@@ -45,6 +45,9 @@ public class GameRunner : MonoBehaviour
     private Color COLOR_RED = new Color(1f, 0.086f, 0.028f, 0.2823f);
     private Color COLOR_GREEN = new Color(0.023f, 1f, 0.0203f, 0.2823f);
     private Color COLOR_OFF = new Color(0f, 0f, 0f, 0f);
+    private int STARTING_HAND_SIZE = 3; 
+    private int MAX_HAND_SIZE = 4; 
+    private int STARTING_HEALTH = 20; 
 
     List<RaycastResult> hitObjects = new List<RaycastResult>();
 
@@ -119,10 +122,12 @@ public class GameRunner : MonoBehaviour
     {
         Coroutine Player = StartCoroutine(RequestDeck(0));
         Coroutine Enemy = StartCoroutine(RequestDeck(1));
+        Coroutine Game = StartCoroutine(RequestGame());
         
         yield return new WaitForSeconds(3f);
         yield return Player;
         yield return Enemy;
+        yield return Game;
         
         LoadScreen.SetActive(false); 
     }
@@ -168,6 +173,22 @@ public class GameRunner : MonoBehaviour
         }
     }
 
+    IEnumerator RequestGame()
+    {
+        UnityWebRequest webRequest = UnityWebRequest.Get("https://osucapstone.herokuapp.com/games/" + CurrentGame.GetInstance().id);
+        yield return webRequest.SendWebRequest();
+       
+        if (webRequest.responseCode == 200)
+        {
+            Game rules = JsonUtility.FromJson<Game>(webRequest.downloadHandler.text);
+            STARTING_HEALTH = rules.health_pool;
+            MAX_HAND_SIZE = rules.total_hand;
+            STARTING_HAND_SIZE = rules.starting_hand;
+            playerHealth = STARTING_HEALTH;
+            enemyHealth = STARTING_HEALTH;
+        }  
+    }
+
     IEnumerator DisplayMessage(string msg, bool permanent = false)
     {
         messageDisplayed = true;
@@ -197,7 +218,7 @@ public class GameRunner : MonoBehaviour
         
         EndTurnButton.SetActive(true);
         playerMana = Math.Min(round, 10);
-        if (playerHandCount < 5 && PCards.Length - playerDeckLocation > 0)
+        if (playerHandCount < MAX_HAND_SIZE && PCards.Length - playerDeckLocation > 0)
         {
             PCards[playerDeckLocation].card.transform.SetParent(PlayerHandSlots[playerHandCount], false);
             playerHandCount++;
@@ -229,18 +250,18 @@ public class GameRunner : MonoBehaviour
         {
             SetCard(c.id, PlayerHandSlots[index]);
             index++;
-            if (index > 4) {break;}
+            if (index > STARTING_HAND_SIZE - 1) {break;}
         }
 
         enemyHand = new List<Card>();
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < STARTING_HAND_SIZE; i++)
         {
             Instantiate(EnemyCardBack, EnemyHandSlots[i]);
             enemyHand.Add(ECards[i]);
             enemyDeckLocation++;
         }
-        playerHandCount = 5;
-        playerDeckLocation = 5;
+        playerHandCount = STARTING_HAND_SIZE;
+        playerDeckLocation = STARTING_HAND_SIZE;
         currentTurn = "StartPlayerTurn";
         PlayerDeckInfo.SetActive(true);
         EnemyDeckInfo.SetActive(true);
@@ -517,7 +538,7 @@ public class GameRunner : MonoBehaviour
     {
         List<Card> played = new List<Card>();
         enemyMana = Math.Min(round, 10);
-        if(ECards.Length - enemyDeckLocation > 0 && enemyHand.Count < 5)
+        if(ECards.Length - enemyDeckLocation > 0 && enemyHand.Count < MAX_HAND_SIZE)
         {
             enemyHand.Add(ECards[enemyDeckLocation]);
             enemyDeckLocation++;
