@@ -360,7 +360,7 @@ def randomize():
         db.session.add(deck_contents)                                                                    
         db.session.commit()                                                                              
                                                                                                          
-        deck_id = deck_contents                                                                          
+        deck_id = deck_contents.id                                                                          
         for i in range(40):                                                                              
             name = generate_slug(2)                                                                      
             health = random.randint(10, 40)                                                              
@@ -370,7 +370,7 @@ def randomize():
             card_contents = Cards(name=name, health=health, attack=attack, cost=cost, image=image)       
             db.session.add(card_contents)                                                                
             db.session.commit()                                                                          
-            card_deck = CardsDecks(card=card_contents, deck=deck_id)                                     
+            card_deck = CardsDecks(card=card_contents.id, deck=deck_id)                                     
             db.session.add(card_deck)                                                                    
             db.session.commit()                                                                          
         return ('', 204)                                                                                 
