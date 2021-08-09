@@ -353,7 +353,7 @@ def get_game_cards(id):
 @app.route('/randomdeck', methods=['POST'])                                                              
 def randomize():                                                                                         
     if request.method == 'POST':                                                                         
-        name = "Random Deck " + random.randint(0, 100)                                                   
+        name = "Random Deck " + str(random.randint(0, 100))                                                   
         description = "Randomly created deck"                                                            
         user_id = session.get('id')                                                                      
         deck_contents = Decks(name=name, description=description, user=user_id)                          
