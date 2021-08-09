@@ -322,8 +322,11 @@ def cards_get_post():
         return ('', 400)
 
     
-@app.route('/cards/<int:id>', methods=['PUT', 'DELETE'])
+@app.route('/cards/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 def cards_put_delete(id):
+    if request.method == 'GET':
+        return jsonify(JSONcard(Cards.query.get_or_404(id)))
+    
     if request.method == 'PUT':
         card = Cards.query.get_or_404(id)
         try:
