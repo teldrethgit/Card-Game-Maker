@@ -14,6 +14,7 @@ public class UpdateGameUI : MonoBehaviour
         GamesObject.transform.Find("Canvas").Find("GameHealth").Find("Health").GetComponent<TMP_Text>().text = game.health_pool.ToString();
         GamesObject.transform.Find("Canvas").Find("GameStartingHand").Find("StartingHand").GetComponent<TMP_Text>().text = game.starting_hand.ToString();
         GamesObject.transform.Find("Canvas").Find("GameID").Find("ID").GetComponent<TMP_Text>().text = game.id.ToString();
+        GamesObject.transform.Find("Canvas").Find("GamePublish").Find("Publish").GetComponent<TMP_Text>().text = game.published.ToString();
        
     }
 }

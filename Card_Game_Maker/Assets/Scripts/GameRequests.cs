@@ -12,13 +12,14 @@ public class GameRequests : MonoBehaviour
 {
 
     //create
-    public GameObject gameCreateFail;
-    public GameObject GameCreateSuccess;
+    public GameObject gameFail;
+    public GameObject GameSuccess;
     public GameObject ChooseGameMenu;
     public GameObject CreateGameMenu;
 
     //update
     public GameObject GameID;
+    public GameObject GamePublish;
     public GameObject EditGameMenu;
     public GameObject EditGameRulesMenu;
   
@@ -132,12 +133,12 @@ public class GameRequests : MonoBehaviour
 
         if (webRequest.responseCode == 204)
         {
-            GameCreateSuccess.SetActive(true);
+            GameSuccess.SetActive(true);
             SceneManager.LoadScene("Games");
         }
         else
         {
-            gameCreateFail.SetActive(true);
+            gameFail.SetActive(true);
             CreateGameMenu.SetActive(true);
         }
     }
@@ -184,13 +185,13 @@ public class GameRequests : MonoBehaviour
 
         if (webRequest.responseCode == 204)
         {
-            //GameCreateSuccess.SetActive(true);
+            GameSuccess.SetActive(true);
             SceneManager.LoadScene("Games");
             
         }
         else
         {
-            //gameCreateFail.SetActive(true);
+            
             EditGameRulesMenu.SetActive(true);
         }
     }
@@ -215,6 +216,40 @@ public void DeleteGame()
         }
     }
 
+public void PublishGame()
+    {
+
+        StartCoroutine(gamePublish());
+    }
+
+    IEnumerator gamePublish()
+    {
+       
+        string gameID = GameID.GetComponent<TMPro.TextMeshProUGUI>().text;
+        string gamePublish = GamePublish.GetComponent<TMPro.TextMeshProUGUI>().text;
+
+        List<IMultipartFormSection> inputForm = new List<IMultipartFormSection>();
+        
+        if (gamePublish == "True"){ 
+            inputForm.Add(new MultipartFormDataSection("published", "false"));
+        } else {
+            inputForm.Add(new MultipartFormDataSection("published", "true"));
+        }
+
+        UnityWebRequest webRequest = UnityWebRequest.Post($"https://osucapstone.herokuapp.com/games/{gameID}/publish", inputForm);
+        yield return webRequest.SendWebRequest();
+        Debug.Log(webRequest.responseCode);
+
+        if (webRequest.responseCode == 204)
+        {
+            GameSuccess.SetActive(true);
+            SceneManager.LoadScene("Games");
+        }
+        else
+        {   
+            EditGameRulesMenu.SetActive(true);
+        }
+    }
 
 }
 

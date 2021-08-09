@@ -9,6 +9,9 @@ public class CallGameMenu : MonoBehaviour
 {       public Button yourButton;
         GameMenu script;
         public GameObject gameID;
+        public GameObject gameName;
+        public GameObject gameDescription;
+        public GameObject gamePublish;
        
 
     // Start is called before the first frame update
@@ -19,7 +22,7 @@ public class CallGameMenu : MonoBehaviour
     void TaskOnClick(){
         
         script = GameObject.FindGameObjectWithTag("changegamescene").GetComponent<GameMenu>();
-        script.ChangeGameMenuScene(gameID);
+        script.ChangeGameMenuScene(gameID,gameName,gameDescription,gamePublish);
     }
 
 }

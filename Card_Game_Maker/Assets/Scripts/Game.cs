@@ -8,7 +8,7 @@ public class Game
     public int starting_hand;
     public int health_pool;
     public int total_hand;
-    public int published;
+    public bool published;
     public string description;
     public int id;
     public string name;
