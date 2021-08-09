@@ -321,7 +321,22 @@ def cards_get_post():
     else:
         return ('', 400)
 
-    
+@app.route('/cards/edit/<int:id>', methods=['POST'])
+def cards_edit(id):
+    if request.method == 'POST':
+        card = Cards.query.get_or_404(id)
+        try:
+            name = request.form['name']
+            health = request.form['health']
+            attack = request.form['attack']
+            cost = request.form['cost']
+            image = bytearray(request.form['image'], 'utf8')
+            # deck = request.form['deck']
+            db.session.commit()
+            return ('', 204)
+        except:
+            return 'There was an issue updating the card'
+
 @app.route('/cards/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 def cards_put_delete(id):
     if request.method == 'GET':
@@ -330,12 +345,12 @@ def cards_put_delete(id):
     if request.method == 'PUT':
         card = Cards.query.get_or_404(id)
         try:
-            name = request.args.get('name')
-            health = request.args.get('health')
-            attack = request.args.get('attack')
-            cost = request.args.get('cost')
-            image = bytearray(request.args.get('image'), 'utf8')
-            # deck = request.form'deck')
+            name = request.form['name']
+            health = request.form['health']
+            attack = request.form['attack']
+            cost = request.form['cost']
+            image = bytearray(request.form['image'], 'utf8')
+            # deck = request.form['deck']
             db.session.commit()
             return ('', 204)
         except:
