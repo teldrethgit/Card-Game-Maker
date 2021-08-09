@@ -218,7 +218,22 @@ def games_put_delete(id):
         db.session.commit()
         return ('', 204)
 
-
+    
+@app.route('/games/<int:id>/publish', methods=['POST'])
+def games_publish(id):
+    if request.method == 'POST':
+        game = Games.query.filter_by(id=id).first()
+        published = request.form['published']
+        if published == "true":
+            game.published = True
+            db.session.commit()
+            return (' ', 204)
+        elif published == "false":
+            game.published = False
+            db.session.commit()
+            return (' ', 204)
+        
+        
 @app.route('/decks', methods=['GET','POST'])
 def decks_get_post():
     if request.method == 'GET':
