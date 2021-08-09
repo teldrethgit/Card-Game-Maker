@@ -12,6 +12,7 @@ public class DecksRequests : MonoBehaviour
 {
     public Transform DeckStartLoc;
     public RectTransform DeckFieldOfView;
+    public GameObject GameID;
     public GameObject DeckPrefab;
     public GameObject NameInput;
     public GameObject DescriptionInput;
@@ -39,6 +40,7 @@ public class DecksRequests : MonoBehaviour
 
     IEnumerator GetDecks()
     {
+ 
         UnityWebRequest webRequest = UnityWebRequest.Get("https://osucapstone.herokuapp.com/decks?game=" + CurrentGame.GetInstance().id);
         yield return webRequest.SendWebRequest();
 
@@ -186,6 +188,29 @@ public class DecksRequests : MonoBehaviour
         deck.transform.Find("Canvas").Find("DeckDescription").Find("DescriptionText").GetComponent<TMP_Text>().text = d.description;
         deck.transform.Find("Canvas").Find("Name").Find("NameText").GetComponent<TMP_Text>().text = d.name;
     }
-}
+
+public void RandomDeck()
+    {
+        StartCoroutine(CreateRandom());
+    }
+
+    IEnumerator CreateRandom()
+    {
+        
+        UnityWebRequest webRequest = UnityWebRequest.Post("https://osucapstone.herokuapp.com/randomdeck?game="+ GameID," ");
+        yield return webRequest.SendWebRequest();
+       
+        if (webRequest.responseCode == 204)
+        {
+            SceneManager.LoadScene("Decks");
+        }
+        else 
+        {
+		    Debug.Log("Request Failed");
+            CreateFailText.SetActive(true);
+            CreateButton.GetComponent<Button>().interactable = true;
+        }
+
+}}
 
 

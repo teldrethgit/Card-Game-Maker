@@ -7,7 +7,7 @@ using UnityEngine;
 public class CurrentGame{
  
     private static CurrentGame instance;
- 
+   
     public int id;
  
     private CurrentGame(){

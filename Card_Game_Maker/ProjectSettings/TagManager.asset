@@ -11,6 +11,7 @@ TagManager:
   - CardRaycast
   - EnemyIcon
   - changegamescene
+  - GameID
   layers:
   - Default
   - TransparentFX
