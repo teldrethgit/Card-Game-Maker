@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: f9d68ea2dcef52148b307d25db592425
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - ScrollPanel: {instanceID: 0}
+  - CardListItemPrefab: {fileID: 228223222167189868, guid: d8f8e1c802dae3b41b307bf99dc87151, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

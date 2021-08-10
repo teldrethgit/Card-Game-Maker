@@ -7,7 +7,8 @@ using System.Collections;
 
 public class UploadImage : MonoBehaviour
 {
-	string[] editData = new string[6];
+	public string imageData;
+	public string base64Data;
 	
     public void OnMouseOver()
     {
@@ -20,21 +21,22 @@ public class UploadImage : MonoBehaviour
     {
         if (dataUrl.StartsWith(s_dataUrlPrefix))
         {
-            byte[] pngData = System.Convert.FromBase64String(dataUrl.Substring(s_dataUrlPrefix.Length));
+			string b64 = dataUrl.Substring(s_dataUrlPrefix.Length);
+			Debug.Log(b64);
+            byte[] pngData = System.Convert.FromBase64String(b64);
 
-            // Create a new Texture (or use some old one?)
-            Texture2D tex = new Texture2D(1, 1); // does the size matter?
+            Texture2D tex = new Texture2D(1, 1);
             if (tex.LoadImage(pngData))
             {
 				Image image = GameObject.Find("ImageButton").GetComponent<Image>();
 				Sprite spr = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100.0f);
 				image.sprite = spr;
-				editData[6] = BitConverter.ToString(pngData);
-				Debug.Log(editData[6]);
+				imageData = BitConverter.ToString(pngData);
+				base64Data = b64;
             }
             else
             {
-                Debug.LogError("could not decode image");
+                Debug.LogError("Error occurred while decoding image");
             }
         }
         else

@@ -10,7 +10,7 @@ public class Card
     public int deck;
     public string description;
     public int id;
-    public object image;
+    public string image;
     public string name;
     public int health = 5;
     public GameObject card;
