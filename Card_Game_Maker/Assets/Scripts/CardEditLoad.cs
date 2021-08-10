@@ -71,8 +71,9 @@ public class CardEditLoad : MonoBehaviour
 			{
 				Texture2D tex = new Texture2D(1, 1);
 				string b64 = cardInfo.image.Substring(12);
-				b64 = b64.Remove(b64.Length - 1, 1);
-				byte[] pngData = System.Convert.FromBase64String(cardInfo.image);
+				b64 = b64.Remove(b64.Length - 2, 2);
+				Debug.Log(b64);
+				byte[] pngData = System.Convert.FromBase64String(b64);
 				tex.LoadImage(pngData);
 				Sprite spr = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100.0f);
 				imageArea.sprite = spr;
