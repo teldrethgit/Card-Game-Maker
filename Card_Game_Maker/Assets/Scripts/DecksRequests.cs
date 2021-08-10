@@ -24,6 +24,7 @@ public class DecksRequests : MonoBehaviour
     public GameObject EditButton;
     public GameObject CardSlot;
     public GameObject CardScroll;
+    public GameObject LoadSpinner;
     public TMP_InputField EditName;
     public TMP_InputField EditDescription;
     public TMP_Text Title;
@@ -192,6 +193,11 @@ public class DecksRequests : MonoBehaviour
 
     public void GetCards()
     {
+        LoadSpinner.SetActive(true);
+        foreach(Card c in cards)
+        {   
+            Destroy(c.card);
+        }
         StartCoroutine(getCards());
     }
 
@@ -206,10 +212,6 @@ public class DecksRequests : MonoBehaviour
         {
             Debug.Log(webRequest.responseCode);
             cardNum = 0;
-            foreach(Card c in cards)
-            {   
-                Destroy(c.card);
-            }
             cards = JsonHelper.FromJson<Card>(fixJson(webRequest.downloadHandler.text));
             Card[] deck = JsonHelper.FromJson<Card>(fixJson(deckRequest.downloadHandler.text));
             bool found = false;
@@ -251,6 +253,8 @@ public class DecksRequests : MonoBehaviour
         {
             Debug.Log("response failed");
         }
+
+        LoadSpinner.SetActive(false);
     }
 
     private void AddCardToDeck(int id)

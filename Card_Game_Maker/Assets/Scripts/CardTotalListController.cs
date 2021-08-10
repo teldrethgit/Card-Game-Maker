@@ -8,6 +8,7 @@ public class CardTotalListController : MonoBehaviour
 {
 	public GameObject ScrollPanel;
 	public GameObject CardListItemPrefab;
+	public GameObject LoadSpinner;
  
 	ArrayList Cards;
  
@@ -49,5 +50,6 @@ public class CardTotalListController : MonoBehaviour
         {
             Debug.Log("Response failed");
         }
+        LoadSpinner.SetActive(false);
     }
 }

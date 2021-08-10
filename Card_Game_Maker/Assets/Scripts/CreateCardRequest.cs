@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 using System;
 
@@ -67,8 +68,7 @@ public class CreateCardRequest : MonoBehaviour
 		
 		if (webRequest.responseCode == 204)
         {
-		    createNewCardMenu.SetActive(false);
-			editCardsMenu.SetActive(true);
+						SceneManager.LoadScene("Cards");
         }
         else 
         {

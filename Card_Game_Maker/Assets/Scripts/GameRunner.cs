@@ -200,6 +200,7 @@ public class GameRunner : MonoBehaviour
             {
                 card.card = Instantiate(CardPrefab, TempCards);
                 CardHelpers.UpdateUI(card, player);
+                CardHelpers.UpdateImage(card);
             }
         }
         else 

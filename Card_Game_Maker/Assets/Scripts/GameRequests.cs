@@ -56,12 +56,13 @@ public class GameRequests : MonoBehaviour
 
             foreach (Game game in games)
             { 
-                game.game = Instantiate(GamePrefab,new Vector3(-1200+index,-150,0), Quaternion.identity);
+                //game.game = Instantiate(GamePrefab,new Vector3(-1200+index,-150,0), Quaternion.identity);
+                game.game = Instantiate(GamePrefab, Scroller.transform);
                 UpdateGameUI.Update(game);
 
                 button = game.game.transform.Find("Canvas").Find("SelectGame").GetComponent<Button>();
                 button.onClick.AddListener(() => SetGameId(game.id));
-                game.game.transform.SetParent(Scroller.transform, false);
+                //game.game.transform.SetParent(Scroller.transform, false);
                 index += 750;
             }
         }
