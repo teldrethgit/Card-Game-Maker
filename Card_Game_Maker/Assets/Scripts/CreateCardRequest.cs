@@ -55,9 +55,10 @@ public class CreateCardRequest : MonoBehaviour
 		
 		List<IMultipartFormSection> inputForm = new List<IMultipartFormSection>();
 		inputForm.Add(new MultipartFormDataSection("name", CardName));
-        inputForm.Add(new MultipartFormDataSection("health", Convert.ToString(Health)));
-        inputForm.Add(new MultipartFormDataSection("attack", Convert.ToString(Attack)));
+		inputForm.Add(new MultipartFormDataSection("health", Convert.ToString(Health)));
+		inputForm.Add(new MultipartFormDataSection("attack", Convert.ToString(Attack)));
 		inputForm.Add(new MultipartFormDataSection("cost", Convert.ToString(Cost)));
+		inputForm.Add(new MultipartFormDataSection("game", Convert.ToString(CurrentGame.GetInstance().id)));
 		inputForm.Add(new MultipartFormDataSection("image", imageString));
 		
 

@@ -35,14 +35,13 @@ public class CardTotalListController : MonoBehaviour
             Card[] cards = JsonHelper.FromJson<Card>(fixJson(webRequest.downloadHandler.text));
 			for(int i = 0; i < cards.Length; ++i)
 			{
-				GameObject newCard = Instantiate(CardListItemPrefab) as GameObject;
+				GameObject newCard = Instantiate(CardListItemPrefab, ScrollPanel.transform) as GameObject;
 				CardListController controller = newCard.GetComponent<CardListController>();
 				
 				newCard.transform.GetChild(0).gameObject.GetComponent<Text>().text = cards[i].name;
 				controller.cardListName = cards[i].name;
 				controller.cardListId = cards[i].id;
 				
-				newCard.transform.parent = ScrollPanel.transform;
 				newCard.transform.localScale = Vector3.one;
 			}
         }

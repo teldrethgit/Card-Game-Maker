@@ -28,7 +28,6 @@ public class CardPostRequests : MonoBehaviour
         string Cost = GameObject.Find("CostInputCreate").GetComponent<TMP_InputField>().text;
         string Description = GameObject.Find("DescriptionInputCreate").GetComponent<TMP_InputField>().text;
         //string Image = GameObject.Find("UploadImageButton").GetComponent<TMP_InputField>().text;
-        string Deck = GameObject.Find("DeckInputCreate").GetComponent<TMP_InputField>().text;
 
         if (CardName == "" || Health == null || Attack == null || Cost == null) { yield break; }
         
@@ -38,13 +37,7 @@ public class CardPostRequests : MonoBehaviour
         inputForm.Add(new MultipartFormDataSection("attack", Attack));
         inputForm.Add(new MultipartFormDataSection("cost", Cost));
         inputForm.Add(new MultipartFormDataSection("description", Description));
-        if (Deck == "") {
-            {};
-        }
-        else
-        {   
-            inputForm.Add(new MultipartFormDataSection("deck", Deck));
-        }
+        inputForm.Add(new MultipartFormDataSection("game", CurrentGame.GetInstance().id.ToString()));
         //inputForm.Add(new MultipartFormDataSection("image", null));
         
 

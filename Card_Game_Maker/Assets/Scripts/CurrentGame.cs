@@ -12,7 +12,7 @@ public class CurrentGame{
     public int deck;
  
     private CurrentGame(){
-        id = 35;
+        id = 71;
         deck = -1;
     }
  

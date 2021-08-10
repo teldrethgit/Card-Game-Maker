@@ -26,7 +26,6 @@ public class GetCardRequest : MonoBehaviour
         {
             Debug.Log(webRequest.downloadHandler.text);
             Card[] cards = JsonHelper.FromJson<Card>(fixJson(webRequest.downloadHandler.text));
-            int index = 0;
 
             foreach (Card card in cards)
             {   
