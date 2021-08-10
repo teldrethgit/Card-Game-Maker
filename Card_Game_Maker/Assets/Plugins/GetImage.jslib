@@ -130,8 +130,8 @@ var getImage = {
           var img = evt.target;
           window.URL.revokeObjectURL(img.src);
           // We probably don't want the fullsize image. It might be 3000x2000 pixels or something too big
-          g.ctx.canvas.width  = 256;
-          g.ctx.canvas.height = 256;
+          g.ctx.canvas.width  = img.width;
+          g.ctx.canvas.height = img.height;
           g.ctx.drawImage(img, 0, 0, g.ctx.canvas.width, g.ctx.canvas.height);
 
           var dataUrl = g.ctx.canvas.toDataURL();
