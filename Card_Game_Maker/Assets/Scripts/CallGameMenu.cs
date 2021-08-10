@@ -10,6 +10,9 @@ public class CallGameMenu : MonoBehaviour
         GameMenu script;
         public GameObject gameID;
         public GameObject gameName;
+        public GameObject gameHealth;
+        public GameObject gameTotalHand;
+        public GameObject gameStartingHand;
         public GameObject gameDescription;
         public GameObject gamePublish;
        
@@ -22,7 +25,7 @@ public class CallGameMenu : MonoBehaviour
     void TaskOnClick(){
         
         script = GameObject.FindGameObjectWithTag("changegamescene").GetComponent<GameMenu>();
-        script.ChangeGameMenuScene(gameID,gameName,gameDescription,gamePublish);
+        script.ChangeGameMenuScene(gameID,gameName,gameHealth,gameTotalHand,gameStartingHand,gameDescription,gamePublish);
     }
 
 }

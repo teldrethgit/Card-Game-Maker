@@ -1140,8 +1140,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -679.0285, y: -37}
-  m_SizeDelta: {x: -710.4127, y: 379.2554}
+  m_AnchoredPosition: {x: 399, y: 0.001159668}
+  m_SizeDelta: {x: -20.4285, y: -0.0023}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &161968335
 GameObject:
@@ -2729,6 +2729,11 @@ MonoBehaviour:
   CurrentGamePublish: {fileID: 2024056268}
   ChooseGameMenu: {fileID: 161968335}
   PublishButton: {fileID: 1812368038}
+  UpdateName: {fileID: 864378306}
+  UpdateHealth: {fileID: 1325003137}
+  UpdateTotalHand: {fileID: 1475827449}
+  UpdateStartingHand: {fileID: 1618517545}
+  UpdateDescription: {fileID: 1958195183}
 --- !u!114 &433881598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12341,8 +12346,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -683.22217, y: -8.020203}
-  m_SizeDelta: {x: -718.8, y: 320.04028}
+  m_AnchoredPosition: {x: 260, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1956703764
 GameObject:
@@ -13856,7 +13861,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.000061035156, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2076365739

@@ -55,7 +55,7 @@ public class GameRequests : MonoBehaviour
 
             foreach (Game game in games)
             { 
-                game.game = Instantiate(GamePrefab,new Vector3(-1000+index,-150,0), Quaternion.identity);
+                game.game = Instantiate(GamePrefab,new Vector3(-1200+index,-150,0), Quaternion.identity);
                 UpdateGameUI.Update(game);
                 game.game.transform.SetParent(Scroller.transform, false);
                 index += 750;
@@ -123,7 +123,7 @@ public class GameRequests : MonoBehaviour
         inputForm.Add(new MultipartFormDataSection("health_pool", PlayerHealth));
         inputForm.Add(new MultipartFormDataSection("total_hand", TotalHand));
         inputForm.Add(new MultipartFormDataSection("starting_hand", StartingHand));
-        inputForm.Add(new MultipartFormDataSection("description", StartingHand));
+        inputForm.Add(new MultipartFormDataSection("description", Description));
         inputForm.Add(new MultipartFormDataSection("published", PublishToggle));
 
 

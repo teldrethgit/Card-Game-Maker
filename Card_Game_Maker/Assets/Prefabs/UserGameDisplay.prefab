@@ -360,6 +360,9 @@ MonoBehaviour:
   yourButton: {fileID: 7896228825574630648}
   gameID: {fileID: 7700552746487418044}
   gameName: {fileID: 1145160807560497227}
+  gameHealth: {fileID: 6184674462901357629}
+  gameTotalHand: {fileID: 8940493619268414625}
+  gameStartingHand: {fileID: 5641021733168073920}
   gameDescription: {fileID: 2220360290557197695}
   gamePublish: {fileID: 568190475625941228}
 --- !u!1 &1096926360779159098
