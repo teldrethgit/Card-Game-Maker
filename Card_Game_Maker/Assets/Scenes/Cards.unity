@@ -538,8 +538,6 @@ GameObject:
   - component: {fileID: 433881590}
   - component: {fileID: 433881592}
   - component: {fileID: 433881593}
-  - component: {fileID: 433881594}
-  - component: {fileID: 433881596}
   - component: {fileID: 433881595}
   - component: {fileID: 433881597}
   - component: {fileID: 433881598}
@@ -635,38 +633,6 @@ MonoBehaviour:
   cardSuccessText: {fileID: 17469910}
   EditCardsMenu: {fileID: 673478740}
   CreateNewCardMenu: {fileID: 0}
---- !u!114 &433881594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 433881588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ce64b8f96a8c2547bf6955addc667f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DeckStartLoc: {fileID: 0}
-  DeckFieldOfView: {fileID: 0}
-  GameID: {fileID: 0}
-  DeckPrefab: {fileID: 0}
-  NameInput: {fileID: 0}
-  DescriptionInput: {fileID: 0}
-  CreateButton: {fileID: 0}
-  CreateFailText: {fileID: 0}
-  Index: {fileID: 0}
-  EditMenu: {fileID: 0}
-  DeckMenu: {fileID: 0}
-  EditFailText: {fileID: 0}
-  EditButton: {fileID: 0}
-  CardSlot: {fileID: 0}
-  CardScroll: {fileID: 0}
-  EditName: {fileID: 0}
-  EditDescription: {fileID: 0}
-  Title: {fileID: 0}
-  DisplayName: {fileID: 0}
-  DisplayDescription: {fileID: 0}
 --- !u!114 &433881595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -679,30 +645,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eb149a354975fc41b2ecf2eac30279f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &433881596
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 433881588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 792542d0b4019a44b97c035be7b25383, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameFail: {fileID: 0}
-  GameSuccess: {fileID: 0}
-  ChooseGameMenu: {fileID: 0}
-  CreateGameMenu: {fileID: 0}
-  GameID: {fileID: 0}
-  GamePublish: {fileID: 0}
-  EditGameMenu: {fileID: 0}
-  EditGameRulesMenu: {fileID: 0}
-  GamePrefab: {fileID: 0}
-  UserGamePrefab: {fileID: 0}
-  Scroller: {fileID: 0}
-  ScrollerUser: {fileID: 0}
 --- !u!114 &433881597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1902,7 +1844,6 @@ GameObject:
   - component: {fileID: 1145480421}
   - component: {fileID: 1145480420}
   - component: {fileID: 1145480419}
-  - component: {fileID: 1145480422}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1975,18 +1916,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1145480422
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1145480418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8820396efe8f655469e1ced564ba1f9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1235695730
 GameObject:
   m_ObjectHideFlags: 0

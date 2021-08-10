@@ -52,11 +52,15 @@ public class GameRequests : MonoBehaviour
             Debug.Log(webRequest.responseCode);
             Game[] games = JsonHelper.FromJson<Game>(fixJson(webRequest.downloadHandler.text));
             int index = 0;
+            Button button;
 
             foreach (Game game in games)
             { 
                 game.game = Instantiate(GamePrefab,new Vector3(-1200+index,-150,0), Quaternion.identity);
                 UpdateGameUI.Update(game);
+
+                button = game.game.transform.Find("Canvas").Find("SelectGame").GetComponent<Button>();
+                button.onClick.AddListener(() => SetGameId(game.id));
                 game.game.transform.SetParent(Scroller.transform, false);
                 index += 750;
             }
@@ -65,6 +69,11 @@ public class GameRequests : MonoBehaviour
         {
             Debug.Log("response failed");
         }
+    }
+
+    private void SetGameId(int id)
+    {
+        CurrentGame.GetInstance().id = id;
     }
 
     IEnumerator getUserGames()
@@ -77,11 +86,15 @@ public class GameRequests : MonoBehaviour
             Debug.Log(webRequest.responseCode);
             Game[] games = JsonHelper.FromJson<Game>(fixJson(webRequest.downloadHandler.text));
             int index = 0;
+            Button button;
 
             foreach (Game game in games)
             { 
                 game.game = Instantiate(UserGamePrefab,new Vector3(-1000+index,-150,0), Quaternion.identity);
                 UpdateGameUI.Update(game);
+
+                button = game.game.transform.Find("Canvas").Find("SelectGame").GetComponent<Button>();
+                button.onClick.AddListener(() => SetGameId(game.id));
                 game.game.transform.SetParent(ScrollerUser.transform, false);
                 index += 750;
             }
