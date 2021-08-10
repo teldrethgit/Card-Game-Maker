@@ -63,7 +63,7 @@ public class DecksRequests : MonoBehaviour
             Deck random = new Deck();
             random.name = "Create Random Deck";
             random.description = "A random deck will be created for you with 30 cards whose values are generally balanced so that health + attack = cost";
-            currentDeck = Instantiate(DeckPrefab, new Vector3(pos.x, pos.y, pos.z), Quaternion.identity, DeckStartLoc);
+            currentDeck = Instantiate(DeckPrefab, new Vector3(pos.x, pos.y, pos.z), Quaternion.identity, DeckFieldOfView);
             UpdateDeckUI(currentDeck, random);
             Button button = currentDeck.transform.Find("Canvas").Find("Button").GetComponent<Button>();
             button.onClick.AddListener(() => SetRandom());
@@ -71,7 +71,7 @@ public class DecksRequests : MonoBehaviour
             int i = 1;
             foreach (Deck d in decks)
             {
-                currentDeck = Instantiate(DeckPrefab, new Vector3(pos.x + (i * 750), pos.y, pos.z), Quaternion.identity, DeckStartLoc);
+                currentDeck = Instantiate(DeckPrefab, new Vector3(pos.x + (i * 750), pos.y, pos.z), Quaternion.identity, DeckFieldOfView);
                 UpdateDeckUI(currentDeck, d);
                 button = currentDeck.transform.Find("Canvas").Find("Button").GetComponent<Button>();
                 button.onClick.AddListener(() => SetEditing(d.id));
