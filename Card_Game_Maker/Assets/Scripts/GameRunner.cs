@@ -24,6 +24,7 @@ public class GameRunner : MonoBehaviour
     public GameObject PlayerDeckInfo;
     public GameObject EnemyDeckInfo;
     public GameObject PlayerHealthOverlay;
+    public GameObject ExitButton;
     public GameObject ErrorScreen;
     public GameObject[] CardSlotGhosts;
     public Transform[] PlayerFieldSlots;
@@ -228,6 +229,10 @@ public class GameRunner : MonoBehaviour
         messageDisplayed = true;
         InfoScreen.transform.Find("InfoText").GetComponent<TMP_Text>().text = msg;
         InfoScreen.SetActive(true);
+        if(permanent)
+        {
+            ExitButton.SetActive(true);
+        }
         yield return new WaitForSeconds(1f);
         
         messageDisplayed = permanent;
