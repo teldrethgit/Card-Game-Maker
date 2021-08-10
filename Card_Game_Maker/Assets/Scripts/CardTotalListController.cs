@@ -26,7 +26,7 @@ public class CardTotalListController : MonoBehaviour
     
     IEnumerator getCards()
     {
-        UnityWebRequest webRequest = UnityWebRequest.Get("https://osucapstone.herokuapp.com/cards");
+        UnityWebRequest webRequest = UnityWebRequest.Get("https://osucapstone.herokuapp.com/cards/games/" + CurrentGame.GetInstance().id);
         yield return webRequest.SendWebRequest();
 
         if (webRequest.responseCode == 200)
